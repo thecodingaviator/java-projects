@@ -34,15 +34,19 @@ public class Board {
       // assign to a variable of type String line the result of calling the readLine method of your BufferedReader object.
       String line=br.readLine();
 
+      int row=0;
+
       // start a while loop that loops while line isn't null
       while(line!=null) {
         // assign to an array of type String the result of calling split on the line with the argument "[ ]+"
-        // print the String (line)
-        // print the size of the String array (you can use .length)
-        // assign to line the result of calling the readLine method of your BufferedReader object.
         String[] split=line.split("[ ]+");
-        System.out.println("Line: " + line);
-        System.out.println("Size of array: " + split.length);
+
+        // create cells in row row
+        for(int j=0; j<this.getCols(); j++) {
+          this.grid[row][j]=new Cell(row, j, Integer.parseInt(split[j]));
+        }
+        
+        row++;
         line=br.readLine();
       }
 
@@ -59,6 +63,51 @@ public class Board {
     }
 
     return false;
+  }
+
+  public int getCols() {
+    return this.grid[0].length;
+  }
+
+  public int getRows() {
+    return this.grid.length;
+  }
+
+  public Cell get(int r, int c) {
+    return grid[r][c];
+  }
+
+  public boolean isLocked(int r, int c) {
+    return this.grid[r][c].isLocked();
+  }
+  
+  public int numLocked() {
+    int countLocked=0;
+    
+    // loop over the grid
+    for(int i=0; i<this.getRows(); i++) {
+      for(int j=0; j<this.getCols(); j++) {
+        // count
+        if(this.grid[i][j].isLocked()) {
+          countLocked++;
+        }
+      }
+    }
+
+    return countLocked;
+  }
+
+  public int value(int r, int c) {
+    return this.grid[r][c].getValue();
+  }
+
+  public void set(int r, int c, int value) {
+    this.grid[r][c].setValue(value);
+  }
+
+  public void set(int r, int c, int value, boolean locked) {
+    this.grid[r][c].setValue(value);
+    this.grid[r][c].setLocked(locked);
   }
 
   public String toString() {
@@ -82,6 +131,7 @@ public class Board {
 
   public static void main(String[] args) {
     Board test=new Board();
+    test.read("test.txt");
     System.out.println(test);
   }
 }

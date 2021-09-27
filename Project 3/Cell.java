@@ -41,15 +41,16 @@ public class Cell {
   }
 
   public void setValue(int newval) {
-    this.value=newval;
+    // do nothing if value is locked
+    if(!this.isLocked)
+      this.value=newval;
   }
 
   public boolean isLocked() {
     return this.isLocked;
   }
 
-  public void setLocked(boolean lock)
-  {
+  public void setLocked(boolean lock) {
     this.isLocked=lock;
   }
 
