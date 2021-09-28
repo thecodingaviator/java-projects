@@ -43,7 +43,8 @@ public class Board {
 
         // create cells in row row
         for(int j=0; j<this.getCols(); j++) {
-          this.grid[row][j]=new Cell(row, j, Integer.parseInt(split[j]));
+          // create new cell at row,j with the value read from the board and set locked
+          this.grid[row][j]=new Cell(row, j, Integer.parseInt(split[j]), Integer.parseInt(split[j])!=0);
         }
 
         row++;
@@ -143,7 +144,7 @@ public class Board {
     int leftBound=col-(col%3);
     // loop through 3*3
     for(int i=topBound; i<topBound+3; i++) {
-      for(int j=leftBound; j<leftBound; j++) {
+      for(int j=leftBound; j<leftBound+3; j++) {
         if(i==row && j==col) {
           continue;
         }
@@ -188,21 +189,6 @@ public class Board {
     }
 
     return result;
-  }
-
-  // helper methods
-  // returns number of unspecified fields
-  public int numOfZeroes() {
-    int count=0;
-
-    for(int i=0; i<Board.SIZE; i++) {
-      for(int j=0; j<Board.SIZE; j++) {
-        if(this.grid[i][j].getValue()==0) {
-          count++;
-        }
-      }
-    }
-    return count;
   }
 
   public static void main(String[] args) {

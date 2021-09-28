@@ -38,7 +38,106 @@ public class Sudoku {
   }
 
   public boolean solve() {
-    CellStack stack=new CellStack(this.game.numOfZeroes());
+    int numFree=81-this.game.numLocked();
+    CellStack stack=new CellStack(numFree);
+
+    while(stack.size()<numFree) {
+      Cell next=this.nextBestCell();
+      // System.out.println(next.getRow()+" "+next.getCol());
+
+      if(next!=null && nextValidValue(next)!=10) {
+        stack.push(next);
+        updateBoard(next);
+      }
+      else {
+        while(!this.game.validSolution() && stack.size()>-1) {
+          Cell popped=stack.pop();
+          int value=0;
+
+          
+          for(value=popped.getValue()+1; value<10; value++) {
+            if(this.game.validValue(popped.getRow(), popped.getCol(), value)) {
+              break;
+            }
+          }
+
+
+          if(popped.getValue()!=value) {
+            popped.setValue(value);
+            updateBoard(popped);
+          }
+            else {
+              popped.setValue(0);
+          }
+        }
+        if(stack.empty()) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  private Cell nextBestCell() {
+    Cell best=null;
+    int numOfSolutions=9;
+
+    // for(int row=0; row<this.game.getRows(); row++) {
+    //   for(int col=0; col<this.game.getCols(); col++) {
+    //     // retrieve Cell at row,col
+    //     Cell temp=this.game.get(row, col);
+
+    //     // if Cell is locked or if it is already filled, skip Cell
+    //     if(temp.isLocked() || temp.getValue()!=0) {
+    //       continue;
+    //     }
+
+    //     // count number of solutions
+    //     int tempNumOfSolutions=0;
+    //     for(int value=1; value<10; value++) {
+    //       if(this.game.validValue(row, col, value)) {
+    //         tempNumOfSolutions++;
+    //       }
+    //     }
+
+    //     // if Cell at row,col has less solutions than previous Cell
+    //     // make it new best Cell
+    //     if(tempNumOfSolutions<numOfSolutions) {
+    //       best=temp;
+    //       numOfSolutions=tempNumOfSolutions;
+    //     }
+    //   }
+    // }
+
+    for(int i=0; i<9; i++)
+      for(int j=0; j<9; j++)
+        if(this.game.get(i, j).getValue()==0)
+          return this.game.get(i,j);
+
+    // by this point either best has a best cell in it
+    // or it is still null which would happen only when
+    // no unlocked empty cells or ones valid values could be found
+    return null;
+  }
+
+  private void updateBoard(Cell temp) {
+    temp.setValue(nextValidValue(temp));
+  }
+
+  private int nextValidValue(Cell temp) {
+    int row=temp.getRow();
+    int col=temp.getCol();
+
+    int value=0;
+
+    for(value=temp.getValue()+1; value<10; value++) {
+      if(this.game.validValue(row, col, value)) {
+        break;
+      }
+    }
+
+    return value;
   }
 
   public static void main(String[] args) {

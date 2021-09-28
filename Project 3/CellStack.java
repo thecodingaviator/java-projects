@@ -11,12 +11,12 @@ public class CellStack {
 
   CellStack() {
     this.stack=new Cell[10];
-    this.pos=0;
+    this.pos=-1;
   }
 
   CellStack(int max) {
     this.stack=new Cell[max];
-    this.pos=0;
+    this.pos=-1;
   }
 
   public void push(Cell c) {
@@ -32,22 +32,22 @@ public class CellStack {
       this.stack=temp;
     }
 
-    this.stack[this.pos++]=c;
+    this.stack[++this.pos]=c;
   }
 
   public Cell pop() {
     if(this.pos>-1) {
-      return this.stack[--this.pos];
+      return this.stack[this.pos--];
     }
     // if stack is empty return invalid cell
     return new Cell(-1, -1, -1, false);
   }
 
   public int size() {
-    return this.pos;
+    return this.pos+1;
   }
 
   public boolean empty() {
-    return this.pos==0;
+    return this.pos==-1;
   }
 }
