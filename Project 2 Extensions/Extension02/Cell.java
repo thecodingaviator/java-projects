@@ -52,7 +52,7 @@ public class Cell {
     }
   }
 
-  public void updateState(ArrayList<Cell> neighbours, int a, int b) {
+  public void updateState(ArrayList<Cell> neighbours) {
     int numberOfNeighboursAlive=0;
 
     // loop through cell's neighbours

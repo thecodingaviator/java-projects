@@ -45,7 +45,7 @@ public class Board {
         for(int j=0; j<this.getCols(); j++) {
           this.grid[row][j]=new Cell(row, j, Integer.parseInt(split[j]));
         }
-        
+
         row++;
         line=br.readLine();
       }
@@ -110,6 +110,65 @@ public class Board {
     this.grid[r][c].setLocked(locked);
   }
 
+  public boolean validValue(int row, int col, int value) {
+
+    // sanity check for bounds of grid
+    if(row<0 || col<0 || row>8 || col>8) {
+      return false;
+    }
+
+    // check if value exists in row
+    for(int i=0; i<this.getCols(); i++) {
+      if(i==col) {
+        continue;
+      }
+      if(this.grid[row][i].getValue()==value) {
+        return false;
+      }
+    }
+
+    // check if value exists in column
+    for(int i=0; i<this.getRows(); i++) {
+      if(i==row) {
+        continue;
+      }
+      if(this.grid[i][col].getValue()==value) {
+        return false;
+      }
+    }
+
+    // check if value exists in 3*3
+    // calculate bounds
+    int topBound=row-(row%3);
+    int leftBound=col-(col%3);
+    // loop through 3*3
+    for(int i=topBound; i<topBound+3; i++) {
+      for(int j=leftBound; j<leftBound; j++) {
+        if(i==row && j==col) {
+          continue;
+        }
+        if(this.grid[i][j].getValue()==value) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  public boolean validSolution() {
+    for(int i=0; i<this.getRows(); i++) {
+      for(int j=0; j<this.getCols(); j++) {
+        if(this.grid[i][j].getValue()==0)
+          return false;
+        if(!this.validValue(i, j, this.grid[i][j].getValue())) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   public String toString() {
     String result="";
     
@@ -130,8 +189,13 @@ public class Board {
   }
 
   public static void main(String[] args) {
-    Board test=new Board();
-    test.read("test.txt");
-    System.out.println(test);
+    Board tester=new Board();
+    String file="test.txt";
+    if(args.length>0)
+      file=args[0];
+    
+    tester.read(file);
+
+    System.out.println(tester.validSolution());
   }
 }

@@ -109,7 +109,7 @@ public class Landscape {
     // advance each cell in temp to next position using results from grid
     for(int i=0; i<r; i++) {
       for(int j=0; j<c; j++) {
-        temp[i][j].updateState(this.getNeighbors(i, j),i,j);
+        temp[i][j].updateState(this.getNeighbors(i, j));
       }
     }
     
