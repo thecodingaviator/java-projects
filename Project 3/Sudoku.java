@@ -39,59 +39,6 @@ public class Sudoku {
 
   public boolean solve() {
     CellStack stack=new CellStack(this.game.numOfZeroes());
-
-    int numOfZeroes=this.game.numOfZeroes();
-    while(stack.size()<numOfZeroes) {
-      int i=0, j=0, iReal=0;
-
-      // find the first empty cell
-      for(; i<Board.SIZE; i++) {
-        for(j=0; j<Board.SIZE; j++) {
-          if(this.game.get(i, j).getValue()==0) {
-            iReal=i;
-            i=Board.SIZE+1;
-            break;
-          }
-        }
-      }
-
-      // keep adding values until a valid value is found
-      // if no valid value is found, pop off the stack
-
-      // start to find a valid value
-      int value=1;
-      while(!this.game.validValue(iReal, j, value)) {
-        value++;
-      }
-
-      // if value is valid
-      if(value<10) {
-        // set value on board
-        this.game.set(iReal, j, value);
-        // push to stack
-        stack.push(this.game.get(iReal, j));
-      }
-      // if value iis invalid
-      else {
-        // pop cell
-        Cell popped=stack.pop();
-        // if stack is empty, game impossible
-        if(popped.getValue()==-1) {
-          return false;
-        }
-        // if stack isnt empty
-        else {
-          // 
-          popped.setValue(popped.getValue()+1);
-          if(popped.getValue()>9) {
-            return false;
-          }
-        }
-      }
-    }
-
-    
-    return true;
   }
 
   public static void main(String[] args) {
