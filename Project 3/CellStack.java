@@ -36,8 +36,9 @@ public class CellStack {
   }
 
   public Cell pop() {
-    if(this.pos!=0)
+    if(this.pos>-1) {
       return this.stack[--this.pos];
+    }
     // if stack is empty return invalid cell
     return new Cell(-1, -1, -1, false);
   }

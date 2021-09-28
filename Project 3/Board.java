@@ -159,8 +159,10 @@ public class Board {
   public boolean validSolution() {
     for(int i=0; i<this.getRows(); i++) {
       for(int j=0; j<this.getCols(); j++) {
+        // if value 0, invalid. return false
         if(this.grid[i][j].getValue()==0)
           return false;
+        // if value invalid, return false
         if(!this.validValue(i, j, this.grid[i][j].getValue())) {
           return false;
         }
@@ -186,6 +188,21 @@ public class Board {
     }
 
     return result;
+  }
+
+  // helper methods
+  // returns number of unspecified fields
+  public int numOfZeroes() {
+    int count=0;
+
+    for(int i=0; i<Board.SIZE; i++) {
+      for(int j=0; j<Board.SIZE; j++) {
+        if(this.grid[i][j].getValue()==0) {
+          count++;
+        }
+      }
+    }
+    return count;
   }
 
   public static void main(String[] args) {
