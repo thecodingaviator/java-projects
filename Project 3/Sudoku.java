@@ -31,7 +31,7 @@ public class Sudoku {
       // if cell is empty and value is valid, assign and increment counter
       if(this.game.get(randomRow, randomCol).getValue()==0 
       && this.game.validValue(randomRow, randomCol, randomValue)) {
-        this.game.set(randomRow, randomCol, randomValue);
+        this.game.set(randomRow, randomCol, randomValue, true);
         counter++;
       }
     }
@@ -159,15 +159,17 @@ public class Sudoku {
   }
 
   public static void main(String[] args) {
-    int startNumber=10;
+    int startNumber=20;
     // if a command line argument is passed, use it as no of locked Cells
     if(args.length>0) {
       startNumber=Integer.parseInt(args[0]);
     }
 
     Sudoku s=new Sudoku(startNumber);
-    s.game.read("test.txt");
     System.out.println(s.game);
+    // s.game.read("test.txt");
+    // System.out.println(s.game);
+    System.out.println(s.game.validSolution());
     s.solve();
     System.out.println(s.game);
     System.out.println(s.game.validSolution());
