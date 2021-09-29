@@ -41,54 +41,51 @@ public class Sudoku {
     int numFree=81-this.game.numLocked();
     CellStack stack=new CellStack(numFree);
 
-//  while the stack size is less than the number of unspecified cells
+    // while stack is smaller than number of free cells
     while(stack.size()<numFree) {
-
-//    select the next cell to check (this is where you add smarts)
+      // get next best cell
       Cell next=this.nextBestCell();
 
-//    if there is a valid next cell to try
+      // if next Cell exists and its value is valid
       if(next!=null && this.nextValidValue(next)<10) {
-//      push the cell onto the stack
+        // push next on stack and update it on the board
         stack.push(next);
-//      update the board
         this.updateBoard(next);
       }
-//    else
+      // else
       else {
-//      while it is necessary and possible to backtrack
+        // while the game is NOT solved and stack is NOT empty
         while(!this.game.validSolution() && !stack.empty()) {
-//        pop a cell off the stack
+          // pop a cell and get next possible value for cell
           Cell popped=stack.pop();
-//        check if there are other untested values this cell could try
           int value=this.nextValidValue(popped);
 
-//        if there is another valid (<10) untested value for this cell
+          // if value is valid i.e. <10 in this case
           if(value<10) {
-//          push the cell with its new value onto the stack
+            // update the value of popped and push it on to stack
             popped.setValue(value);
             stack.push(popped);
-//          update the board (the following line is unnecessary since the board
-//          will automatically update when popped.setValue() is called)
+            // pseudocode also said to update cell on board but
+            // the following line is unnecessary since the board
+            // will automatically update when popped.setValue() is called
             //this.game.set(popped.getRow(), popped.getCol(), value);
-//          break
+            // break
             break;
           }
-//        else
+          // if value is invalid
           else {
-//          set this cell's value to 0 on the board
+            // set cell value to 0
             popped.setValue(0);
           }
         }
-//      if the stack size is 0 (no more backtracking possible)
-//        return false: there is no solution
+        // if stack is empty, return that puzzle cannot be solved
         if(stack.empty()) {
           return false;
         }
       }
     }
 
-//  return true: the board contains the solution
+    // if we have reached here, the puzzle is solved
     return true;
   }
 

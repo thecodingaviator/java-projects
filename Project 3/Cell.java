@@ -41,10 +41,6 @@ public class Cell {
   }
 
   public void setValue(int newval) {
-    if(newval==10) {
-      System.out.println(row+" "+col);
-    }
-
     // do nothing if value is locked
     if(!this.isLocked)
       this.value=newval;
