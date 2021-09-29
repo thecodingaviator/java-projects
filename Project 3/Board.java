@@ -89,7 +89,7 @@ public class Board {
     for(int i=0; i<this.getRows(); i++) {
       for(int j=0; j<this.getCols(); j++) {
         // count
-        if(this.grid[i][j].isLocked()) {
+        if(this.isLocked(i, j)) {
           countLocked++;
         }
       }
@@ -199,6 +199,7 @@ public class Board {
     
     tester.read(file);
 
+    System.out.println(tester);
     System.out.println(tester.validSolution());
   }
 }

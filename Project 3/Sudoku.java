@@ -167,11 +167,13 @@ public class Sudoku {
 
     Sudoku s=new Sudoku(startNumber);
     System.out.println(s.game);
+
+    // uncomment the following lines to read from test.txt
     // s.game.read("test.txt");
     // System.out.println(s.game);
-    System.out.println(s.game.validSolution());
+    
     s.solve();
     System.out.println(s.game);
-    System.out.println(s.game.validSolution());
+    System.out.println("Has game been solved? " + s.game.validSolution());
   }
 }
