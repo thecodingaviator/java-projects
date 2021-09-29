@@ -5,6 +5,8 @@ File: Cell.java
 Section: A
 */
 
+import java.awt.*;
+
 public class Cell {
   private int row, col, value;
   private boolean isLocked;
@@ -56,6 +58,11 @@ public class Cell {
 
   public Cell clone() {
     return new Cell(this.row, this.col, this.value, this.isLocked);
+  }
+
+  public void draw(Graphics g, int x0, int y0, int scale) {
+    char[] draw={(char)('0' + this.value), 0};
+    g.drawChars(draw, 0, 1, x0*scale, y0*scale);
   }
 
   public String toString() {

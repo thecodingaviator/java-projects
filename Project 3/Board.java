@@ -6,6 +6,7 @@ Section: A
 */
 
 import java.io.*;
+import java.awt.*;
 
 public class Board {
   private Cell[][] grid;
@@ -189,6 +190,14 @@ public class Board {
     }
 
     return result;
+  }
+
+  public void draw(Graphics g, int scale) {
+    for(int row=0; row<this.getRows(); row++) {
+      for(int col=0; col<this.getCols(); col++) {
+        this.grid[row][col].draw(g, row, col, scale);
+      }
+    }
   }
 
   public static void main(String[] args) {

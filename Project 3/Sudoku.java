@@ -9,13 +9,16 @@ import java.util.Random;
 
 public class Sudoku {
   private Board game;
+  private LandscapeDisplay display;
 
   Sudoku() {
     game=new Board();
+    display=new LandscapeDisplay(game, 30);
   }
 
   Sudoku(final int N) {
     game=new Board();
+    display=new LandscapeDisplay(game, 30);
 
     Random generator=new Random();
 
