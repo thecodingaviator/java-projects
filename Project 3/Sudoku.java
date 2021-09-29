@@ -41,41 +41,54 @@ public class Sudoku {
     int numFree=81-this.game.numLocked();
     CellStack stack=new CellStack(numFree);
 
+//  while the stack size is less than the number of unspecified cells
     while(stack.size()<numFree) {
+
+//    select the next cell to check (this is where you add smarts)
       Cell next=this.nextBestCell();
-      // System.out.println(next.getRow()+" "+next.getCol());
 
-      if(next!=null && nextValidValue(next)!=10) {
+//    if there is a valid next cell to try
+      if(next!=null && this.nextValidValue(next)<10) {
+//      push the cell onto the stack
         stack.push(next);
-        updateBoard(next);
+//      update the board
+        this.updateBoard(next);
       }
+//    else
       else {
-        while(!this.game.validSolution() && stack.size()>-1) {
+//      while it is necessary and possible to backtrack
+        while(!this.game.validSolution() && !stack.empty()) {
+//        pop a cell off the stack
           Cell popped=stack.pop();
-          int value=0;
+//        check if there are other untested values this cell could try
+          int value=this.nextValidValue(popped);
 
-          
-          for(value=popped.getValue()+1; value<10; value++) {
-            if(this.game.validValue(popped.getRow(), popped.getCol(), value)) {
-              break;
-            }
-          }
-
-
-          if(popped.getValue()!=value) {
+//        if there is another valid untested value for this cell
+          if(value<10) {
+//          push the cell with its new value onto the stack
             popped.setValue(value);
-            updateBoard(popped);
+            stack.push(popped);
+//          update the board (the following line is unnecessary since the board
+//          will automatically update when popped.setValue() is called)
+            //this.game.set(popped.getRow(), popped.getCol(), value);
+//          break
+            break;
           }
-            else {
-              popped.setValue(0);
+//        else
+          else {
+//          set this cell's value to 0 on the board
+            popped.setValue(0);
           }
         }
+//      if the stack size is 0 (no more backtracking possible)
+//        return false: there is no solution
         if(stack.empty()) {
           return false;
         }
       }
     }
-
+    
+//  return true: the board contains the solution
     return true;
   }
 
@@ -83,46 +96,51 @@ public class Sudoku {
     Cell best=null;
     int numOfSolutions=9;
 
-    // for(int row=0; row<this.game.getRows(); row++) {
-    //   for(int col=0; col<this.game.getCols(); col++) {
-    //     // retrieve Cell at row,col
-    //     Cell temp=this.game.get(row, col);
+    for(int row=0; row<this.game.getRows(); row++) {
+      for(int col=0; col<this.game.getCols(); col++) {
+        // retrieve Cell at row,col
+        Cell temp=this.game.get(row, col);
 
-    //     // if Cell is locked or if it is already filled, skip Cell
-    //     if(temp.isLocked() || temp.getValue()!=0) {
-    //       continue;
-    //     }
+        // if Cell is locked or if it is already filled, skip Cell
+        if(temp.isLocked() || temp.getValue()!=0) {
+          continue;
+        }
 
-    //     // count number of solutions
-    //     int tempNumOfSolutions=0;
-    //     for(int value=1; value<10; value++) {
-    //       if(this.game.validValue(row, col, value)) {
-    //         tempNumOfSolutions++;
-    //       }
-    //     }
+        // count number of solutions
+        int tempNumOfSolutions=0;
+        for(int value=1; value<10; value++) {
+          if(this.game.validValue(row, col, value)) {
+            tempNumOfSolutions++;
+          }
+        }
 
-    //     // if Cell at row,col has less solutions than previous Cell
-    //     // make it new best Cell
-    //     if(tempNumOfSolutions<numOfSolutions) {
-    //       best=temp;
-    //       numOfSolutions=tempNumOfSolutions;
-    //     }
-    //   }
-    // }
-
-    for(int i=0; i<9; i++)
-      for(int j=0; j<9; j++)
-        if(this.game.get(i, j).getValue()==0)
-          return this.game.get(i,j);
+        // if Cell at row,col has less solutions than previous Cell
+        // make it new best Cell
+        if(tempNumOfSolutions<numOfSolutions) {
+          best=temp;
+          numOfSolutions=tempNumOfSolutions;
+        }
+      }
+    }
 
     // by this point either best has a best cell in it
     // or it is still null which would happen only when
     // no unlocked empty cells or ones valid values could be found
-    return null;
+    return best;
   }
 
-  private void updateBoard(Cell temp) {
-    temp.setValue(nextValidValue(temp));
+  private boolean updateBoard(Cell temp) {
+    int value=nextValidValue(temp);
+
+    // if value is valid, return true and set value
+    if(value<10) {
+      temp.setValue(value);
+      return true;
+    }
+    // else return false
+    else {
+      return false;
+    }
   }
 
   private int nextValidValue(Cell temp) {
@@ -141,14 +159,15 @@ public class Sudoku {
   }
 
   public static void main(String[] args) {
-    int startNumber=80;
+    int startNumber=10;
     if(args.length>0) {
       startNumber=Integer.parseInt(args[0]);
     }
-    Sudoku s=new Sudoku();
+    Sudoku s=new Sudoku(startNumber);
     s.game.read("test.txt");
     System.out.println(s.game);
     s.solve();
     System.out.println(s.game);
+    System.out.println(s.game.validSolution());
   }
 }
