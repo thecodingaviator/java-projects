@@ -1,6 +1,6 @@
 /*
 Name: Parth Parth
-Date: 09/27/2021
+Date: 09/28/2021
 File: Sudoku.java
 Section: A
 */
@@ -63,7 +63,7 @@ public class Sudoku {
 //        check if there are other untested values this cell could try
           int value=this.nextValidValue(popped);
 
-//        if there is another valid untested value for this cell
+//        if there is another valid (<10) untested value for this cell
           if(value<10) {
 //          push the cell with its new value onto the stack
             popped.setValue(value);
@@ -87,7 +87,7 @@ public class Sudoku {
         }
       }
     }
-    
+
 //  return true: the board contains the solution
     return true;
   }
@@ -149,20 +149,25 @@ public class Sudoku {
 
     int value=0;
 
+    // check value start from present value+1 till 9
     for(value=temp.getValue()+1; value<10; value++) {
+      // if value is valid, break
       if(this.game.validValue(row, col, value)) {
         break;
       }
     }
 
+    // will return value if a value in Cell temp is possible else 10
     return value;
   }
 
   public static void main(String[] args) {
     int startNumber=10;
+    // if a command line argument is passed, use it as no of locked Cells
     if(args.length>0) {
       startNumber=Integer.parseInt(args[0]);
     }
+
     Sudoku s=new Sudoku(startNumber);
     s.game.read("test.txt");
     System.out.println(s.game);
