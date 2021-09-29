@@ -40,12 +40,26 @@ public class Sudoku {
     }
   }
 
-  public boolean solve() {
+  public boolean solve(int delay) {
     int numFree=81-this.game.numLocked();
     CellStack stack=new CellStack(numFree);
 
     // while stack is smaller than number of free cells
     while(stack.size()<numFree) {
+
+
+      if( delay > 0 ) {
+        try {
+            Thread.sleep(delay);
+        }
+        catch(InterruptedException ex) {
+            System.out.println("Interrupted");
+        }
+        display.repaint();
+      }
+
+
+
       // get next best cell
       Cell next=this.nextBestCell();
 
@@ -175,7 +189,7 @@ public class Sudoku {
     // s.game.read("test.txt");
     // System.out.println(s.game);
     
-    s.solve();
+    s.solve(10);
     System.out.println(s.game);
     System.out.println("Has game been solved? " + s.game.validSolution());
   }
