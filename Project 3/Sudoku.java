@@ -193,4 +193,26 @@ public class Sudoku {
     System.out.println(s.game);
     System.out.println("Has game been solved? " + s.game.validSolution());
   }
+
+  // the following main method code is for exploration
+  // public static void main(String[] args) {
+  //     int startNumber=40;
+  //     // if a command line argument is passed, use it as no of locked Cells
+  //     if(args.length>0) {
+  //       startNumber=Integer.parseInt(args[0]);
+  //     }
+  
+  //     Sudoku s=new Sudoku(startNumber);
+  //     System.out.println(s.game);
+
+  //     for(int i=1; i<11; i++) {
+  //       long one=System.currentTimeMillis();
+  //       s.solve(0);
+  //       long two=System.currentTimeMillis();
+  //       System.out.println(two-one + " solved? " + s.game.validSolution());
+  //       s=new Sudoku(startNumber);
+  //     }
+
+  //     System.exit(0);
+  //   }
 }

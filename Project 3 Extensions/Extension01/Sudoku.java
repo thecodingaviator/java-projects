@@ -186,10 +186,15 @@ public class Sudoku {
     System.out.println(s.game);
 
     // uncomment the following lines to read from test.txt
-    s.game.read("test.txt");
-    System.out.println(s.game);
+    // s.game.read("test.txt");
+    // System.out.println(s.game);
     
-    s.solve(10);
+
+    s.solve(0);
+
+
+
+
     System.out.println(s.game);
     System.out.println("Has game been solved? " + s.game.validSolution());
   }
