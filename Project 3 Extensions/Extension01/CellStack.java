@@ -50,4 +50,20 @@ public class CellStack {
   public boolean empty() {
     return this.pos==-1;
   }
+
+  public static void main(String[] args) {
+    CellStack s=new CellStack(10);
+    System.out.println("Size: " + s.size());
+    System.out.println("Empty: " + s.empty());
+
+    System.out.println("Pushing");
+    s.push(new Cell(0,0,5));
+    System.out.println("Size: " + s.size());
+    System.out.println("Empty: " + s.empty());
+
+    System.out.println("Popping");
+    s.pop();
+    System.out.println("Size: " + s.size());
+    System.out.println("Empty: " + s.empty());
+  }
 }

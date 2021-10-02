@@ -1,6 +1,6 @@
 /*
 Name: Parth Parth
-Date: 09/28/2021
+Date: 10/02/2021
 File: Sudoku.java
 Section: A
 */
@@ -106,41 +106,54 @@ public class Sudoku {
     return true;
   }
 
-  private Cell nextBestCell() {
-    Cell best=null;
-    int numOfSolutions=9;
 
-    for(int row=0; row<this.game.getRows(); row++) {
-      for(int col=0; col<this.game.getCols(); col++) {
-        // retrieve Cell at row,col
-        Cell temp=this.game.get(row, col);
+  // method 2
+  // private Cell nextBestCell() {
+  //   Cell best=null;
+  //   int numOfSolutions=9;
 
-        // if Cell is locked or if it is already filled, skip Cell
-        if(temp.isLocked() || temp.getValue()!=0) {
-          continue;
-        }
+  //   for(int row=0; row<this.game.getRows(); row++) {
+  //     for(int col=0; col<this.game.getCols(); col++) {
+  //       // retrieve Cell at row,col
+  //       Cell temp=this.game.get(row, col);
 
-        // count number of solutions
-        int tempNumOfSolutions=0;
-        for(int value=1; value<10; value++) {
-          if(this.game.validValue(row, col, value)) {
-            tempNumOfSolutions++;
+  //       // if Cell is locked or if it is already filled, skip Cell
+  //       if(temp.isLocked() || temp.getValue()!=0) {
+  //         continue;
+  //       }
+
+  //       // count number of solutions
+  //       int tempNumOfSolutions=0;
+  //       for(int value=1; value<10; value++) {
+  //         if(this.game.validValue(row, col, value)) {
+  //           tempNumOfSolutions++;
+  //         }
+  //       }
+
+  //       // if Cell at row,col has less solutions than previous Cell
+  //       // make it new best Cell
+  //       if(tempNumOfSolutions<numOfSolutions) {
+  //         best=temp;
+  //         numOfSolutions=tempNumOfSolutions;
+  //       }
+  //     }
+  //   }
+
+    // method 1
+    private Cell nextBestCell() {
+      for(int row=0; row<this.game.getRows(); row++) {
+        for(int col=0; col<this.game.getCols(); col++) {
+          // retrieve Cell at row,col
+          Cell temp=this.game.get(row, col);
+
+          // if cell is not locked and is empty, return
+          if(!temp.isLocked() && temp.getValue()==0) {
+            return temp;
           }
         }
-
-        // if Cell at row,col has less solutions than previous Cell
-        // make it new best Cell
-        if(tempNumOfSolutions<numOfSolutions) {
-          best=temp;
-          numOfSolutions=tempNumOfSolutions;
-        }
       }
-    }
 
-    // by this point either best has a best cell in it
-    // or it is still null which would happen only when
-    // no unlocked empty cells or ones valid values could be found
-    return best;
+      return null;
   }
 
   private boolean updateBoard(Cell temp) {
@@ -188,14 +201,18 @@ public class Sudoku {
     // uncomment the following lines to read from test.txt
     // s.game.read("test.txt");
     // System.out.println(s.game);
+    long sum=0;
     
+    for(int i=0; i<101; i++) {
+      s=new Sudoku(10);
+      long one=System.currentTimeMillis();
+      s.solve(0);
+      long two=System.currentTimeMillis();
+      sum+=two-one;
+    }
+    System.out.println(sum);
+    System.exit(0);
 
-    s.solve(0);
-
-
-
-
-    System.out.println(s.game);
-    System.out.println("Has game been solved? " + s.game.validSolution());
+    
   }
 }

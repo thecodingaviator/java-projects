@@ -68,4 +68,18 @@ public class Cell {
   public String toString() {
     return String.valueOf(this.value);
   }
+
+  public static void main(String[] args) {
+    Cell a=new Cell(0, 7, 5, true);
+    System.out.println("Row: " + a.getRow());
+    System.out.println("Col: " + a.getCol());
+    System.out.println("Value: " + a.getValue());
+    System.out.println("Locked: " + a.isLocked());
+
+    a.setLocked(true);
+    a.setValue(5);
+
+    System.out.println("Value: " + a.getValue());
+    System.out.println("Locked: " + a.isLocked());
+  }
 }
