@@ -208,6 +208,10 @@ public class Board {
     
     tester.read(file);
 
+    tester.set(0, 0, 100);
+    System.out.println(tester.get(0, 0));
+    System.out.println(tester.validValue(0, 0, 100));
+
     System.out.println(tester);
     System.out.println(tester.validSolution());
   }
