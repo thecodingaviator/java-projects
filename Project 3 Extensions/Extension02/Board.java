@@ -54,6 +54,8 @@ public class Board {
         // set line to result
         line=result;
 
+        line=line.trim();
+
         // if line is empty, move to next line
         if(line.length()==0) {
           line=br.readLine();
