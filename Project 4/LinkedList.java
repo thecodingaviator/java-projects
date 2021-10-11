@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 10/04/2021
+File: LinkedList.java
+Section: A
+*/
+
 import java.util.Iterator;    // defines the Iterator interface
 import java.util.ArrayList;   
 import java.util.Collections; // contains a shuffle function
@@ -99,17 +106,6 @@ public class LinkedList<T> implements Iterable<T> {
     return current;
   }
 
-  // helper method to get node at index-1
-  private Node<T> getPrevNode(int index) {
-    index-=2;
-    Node<T> current=this.head;
-    while(index>0) {
-      current=current.getNext();
-      index--;
-    }
-    return current;
-  }
-
   public void remove(int index) {
     if(index==0) {
       this.head=this.head.getNext();
@@ -124,6 +120,18 @@ public class LinkedList<T> implements Iterable<T> {
       
     }
     this.size--;
+  }
+
+  public String toString() {
+    Node<T> head=this.head;
+    String result="";
+
+    while(head!=null) {
+      result+=head.getThing()+(head.getNext()==null?"":", ");
+      head=head.getNext();
+    }
+
+    return result;
   }
 
   private class LLIterator implements Iterator<T> {
@@ -164,5 +172,38 @@ public class LinkedList<T> implements Iterable<T> {
     ArrayList<T> list=this.toArrayList();
     Collections.shuffle(list);
     return list;
+  }
+
+  public static void main(String[] args) {
+    LinkedList<Integer> list=new LinkedList<Integer>();
+    System.out.println("Add 25");
+    list.add(0, 25);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+
+    System.out.println("Add 13");
+    list.addFirst(13);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+
+    System.out.println("Add 1");
+    list.addFirst(1);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+
+    System.out.println("Add 5");
+    list.add(1, 5);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+
+    System.out.println("Add 56");
+    list.addLast(56);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+
+    System.out.println("Remove at index 3");
+    list.remove(3);
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
   }
 }

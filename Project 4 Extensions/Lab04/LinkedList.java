@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 10/04/2021
+File: LinkedList.java
+Section: A
+*/
+
 import java.util.Iterator;    // defines the Iterator interface
 import java.util.ArrayList;   
 import java.util.Collections; // contains a shuffle function
