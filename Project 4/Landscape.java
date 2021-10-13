@@ -36,10 +36,16 @@ public class Landscape {
   }
 
   public ArrayList<Agent> getNeighbors(double x0, double y0, double radius) {
+    // to store all neighbours in radius
     ArrayList<Agent> members=new ArrayList<Agent>();
+
+    // loop over the list
     for(Agent e: this.list) {
+      // get distance between e and (x0, y0)
       double distance=this.distance(x0, y0, e.getX(), e.getY());
+      // if distance is less than radius
       if(distance<radius) {
+        // add it to members
         members.add(e);
       }
     }
@@ -47,6 +53,7 @@ public class Landscape {
   }
 
   private double distance(double x0, double y0, double x1, double y1) {
+    // use the distance formula
     double x=x1-x0;
     double y=y1-y0;
     x=Math.pow(x, 2);
@@ -62,11 +69,17 @@ public class Landscape {
   }
 
   public void updateAgents() {
+    // get shuffled list from the current list
     ArrayList<Agent> shuffled=this.list.toShuffledList();
+
+    // create new landscape
     Landscape scape=new Landscape(500, 500);
+
+    // add agents to landscape
     for(Agent e: shuffled) {
       scape.addAgent(e);
     }
+    // update all agents
     for(Agent e: shuffled) {
       e.updateState(scape);
     }

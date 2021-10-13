@@ -29,14 +29,20 @@ public class SocialAgent extends Agent {
 
   public void draw(Graphics g) {
     Graphics2D gr=(Graphics2D) g;
+
+    // if cell is moving, color is cyan
     gr.setColor(Color.CYAN);
     gr.setPaint(Color.CYAN);
+
+    // if cell has moved, set color to blue
     if(this.moved) {
       gr.setColor(Color.BLUE);
       gr.setPaint(Color.BLUE);
     }
 
+    // draw circle in circle
     Ellipse2D.Double circle=new Ellipse2D.Double(this.getX(), this.getY(), 10, 10);
+    // fill circle
     gr.fill(circle);
     gr.draw(circle);
   }
@@ -44,13 +50,17 @@ public class SocialAgent extends Agent {
   public void updateState(Landscape scape) {
     Random gen=new Random();
     this.moved=false;
+
+    // if scape has more than 3 neighbours in radius
     if(scape.getNeighbors(this.getX(), this.getY(), this.getRadius()).size()>3) {
+      // with a 1% probability, it will move
       if(gen.nextInt(100) == 0) {
         this.moved=true;
         this.setX(this.getX()+gen.nextDouble(-10, 10));
         this.setY(this.getY()+gen.nextDouble(-10, 10));
       }
     }
+    // otherwise, it will move
     else {
       this.moved=true;
       this.setX(this.getX()+gen.nextDouble(-10, 10));
