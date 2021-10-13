@@ -1,13 +1,6 @@
-/*
-Name: Parth Parth
-Date: 10/12/2021
-File: SocialAgentSimulation.java
-Section: A
-*/
-
 import java.util.Random;
 
-public class SocialAgentSimulation {
+public class CatSocialAgentSimulation {
   public static void main(String[] args) throws InterruptedException {
     int w=500;
     int h=500;
@@ -21,22 +14,23 @@ public class SocialAgentSimulation {
     final int N=200;
     
     Random gen = new Random();
-    int radiusOfSensitivity=20;
+
+    int radiusOfSensitivity=100;
 
     for(int i=0;i<N;i++) {
-      scape.addAgent(new SocialAgent(gen.nextDouble()*(scape.getWidth() - 20),
-			gen.nextDouble() * (scape.getHeight() - 20), radiusOfSensitivity));
+      scape.addAgent(new CatSocialAgent(gen.nextDouble()*(scape.getWidth() - 20),
+			gen.nextDouble() * (scape.getHeight() - 20), gen.nextInt(2), radiusOfSensitivity));
     }
 
     LandscapeDisplay display=new LandscapeDisplay(scape);
     display.repaint();
 
-    for(int i=0; i<20000; i++) {
+    for(int i=0; i<200; i++) {
       for(Agent e: scape.getList()) {
         e.updateState(scape);
       }
       display.repaint();
-      Thread.sleep(50);
+      //Thread.sleep(50);
     }
 
   }

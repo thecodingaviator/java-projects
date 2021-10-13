@@ -11,7 +11,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class SocialAgent extends Agent {
-  private boolean moved;
+  protected boolean moved;
   private int radius;
 
   public SocialAgent(double x0, double y0, int r0) {
