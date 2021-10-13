@@ -36,12 +36,10 @@ public class Agent {
     return "(" + this.x + ", " + this.y + ")";
   }
 
-  // public void updateState(Landscape scape) {
-
-  // }
+  public void updateState(Landscape scape) {
+  }
 
   public void draw(Graphics g) {
-
   }
 
   public static void main(String[] args) {
@@ -56,6 +54,6 @@ public class Agent {
     a.setY(9.677);
     System.out.println("X: " + a.getX());
     System.out.println("Y: " + a.getY());
-    System.out.println("Coordinates: " + a);    
+    System.out.println("Coordinates: " + a);
   }
 }

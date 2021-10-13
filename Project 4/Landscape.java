@@ -11,11 +11,11 @@ import java.awt.Graphics;
 public class Landscape {
   private int w;
   private int h;
-  LinkedList<Agent> list;
+  private LinkedList<Agent> list;
 
   public Landscape(int w, int h) {
-    this.w=0;
-    this.h=0;
+    this.w=w;
+    this.h=h;
     this.list=new LinkedList<Agent>();
   }
 
@@ -56,8 +56,55 @@ public class Landscape {
   }
 
   public void draw(Graphics g) {
-    for(Agent e: list) {
+    for(Agent e: this.list) {
       e.draw(g);
     }
+  }
+
+  public void updateAgents() {
+    ArrayList<Agent> shuffled=this.list.toShuffledList();
+    Landscape scape=new Landscape(500, 500);
+    for(Agent e: shuffled) {
+      scape.addAgent(e);
+    }
+    for(Agent e: shuffled) {
+      e.updateState(scape);
+    }
+  }
+
+  // helper method for SocialAgentSimulation
+  LinkedList<Agent> getList() {
+    return this.list;
+  }
+
+  public static void main(String[] args) {
+    Landscape scape=new Landscape(500, 500);
+    SocialAgent a=new SocialAgent(5, 5, 5),
+    b=new SocialAgent(10, 10, 5),
+    c=new SocialAgent(15, 15, 5),
+    d=new SocialAgent(20, 20, 5);
+    scape.addAgent(a);
+    scape.addAgent(b);
+    scape.addAgent(c);
+    scape.addAgent(d);
+
+    a.updateState(scape);
+    System.out.println("Neighbours in 10: " + (scape.getNeighbors(5, 5, 10).size()));
+
+    System.out.println("Resetting");
+    a=new SocialAgent(5, 5, 5);
+    b=new SocialAgent(10, 10, 5);
+    c=new SocialAgent(15, 15, 5);
+    d=new SocialAgent(20, 20, 5);
+    a.updateState(scape);
+    System.out.println("Neighbours in 15: " + (scape.getNeighbors(5, 5, 15).size()));
+
+    System.out.println("Resetting");
+    a=new SocialAgent(5, 5, 5);
+    b=new SocialAgent(10, 10, 5);
+    c=new SocialAgent(15, 15, 5);
+    d=new SocialAgent(20, 20, 5);
+    a.updateState(scape);
+    System.out.println("Neighbours in 25: " + (scape.getNeighbors(5, 5, 25).size()));
   }
 }

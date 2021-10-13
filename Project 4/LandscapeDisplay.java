@@ -129,13 +129,12 @@ public class LandscapeDisplay
 
     // test function that creates a new LandscapeDisplay and populates it with 200 agents.
     public static void main(String[] args) throws InterruptedException {
-        Landscape scape = new Landscape(500,500);
+        Landscape scape = new Landscape(500, 500);
         Random gen = new Random();
 
         for(int i=0;i<200;i++) {
-            scape.addAgent( new SocialAgent( gen.nextDouble() * scape.getWidth(),
-																						 gen.nextDouble() * scape.getHeight(),
-																						 15) );
+            scape.addAgent( new SocialAgent( gen.nextDouble() * (scape.getWidth() - 20),
+			gen.nextDouble() * (scape.getHeight() - 20), 15) );
         }
 
         LandscapeDisplay display = new LandscapeDisplay(scape);
