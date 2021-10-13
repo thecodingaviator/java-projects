@@ -133,8 +133,8 @@ public class LandscapeDisplay
         Random gen = new Random();
 
         for(int i=0;i<200;i++) {
-            scape.addAgent( new SocialAgent( gen.nextDouble() * (scape.getWidth() - 20),
-			gen.nextDouble() * (scape.getHeight() - 20), 15) );
+            scape.addAgent( new SocialAgent( gen.nextDouble() * scape.getWidth(),
+			gen.nextDouble() * scape.getHeight(), 15) );
         }
 
         LandscapeDisplay display = new LandscapeDisplay(scape);
