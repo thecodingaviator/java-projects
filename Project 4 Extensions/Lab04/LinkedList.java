@@ -106,17 +106,6 @@ public class LinkedList<T> implements Iterable<T> {
     return current;
   }
 
-  // helper method to get node at index-1
-  private Node<T> getPrevNode(int index) {
-    index-=2;
-    Node<T> current=this.head;
-    while(index>0) {
-      current=current.getNext();
-      index--;
-    }
-    return current;
-  }
-
   public void remove(int index) {
     if(index==0) {
       this.head=this.head.getNext();

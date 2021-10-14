@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 10/12/2021
+File: CatSocialAgentSimulation.java
+Section: A
+*/
+
 import java.util.Random;
 
 public class CatSocialAgentSimulation {
