@@ -25,7 +25,7 @@ public class CatSocialAgentSimulation {
     final int N=200;
     
     Random gen = new Random();
-    int radiusOfSensitivity=100;
+    int radiusOfSensitivity=80;
 
     // create N agents on landscape scape
     for(int i=0;i<N;i++) {
@@ -45,6 +45,5 @@ public class CatSocialAgentSimulation {
       display.repaint();
       Thread.sleep(50);
     }
-
   }
 }

@@ -28,12 +28,13 @@ public class CatSocialAgent extends SocialAgent {
   }
 
   public String toString() {
-    return ""+this.category;
+    return "(" + this.x + ", " + this.y + ")" + " Category: " + this.category;
   }
 
   public void draw(Graphics g) {
     Graphics2D gr=(Graphics2D) g;
 
+    // if category is 0
     // if cell is moving, color is cyan
     gr.setColor(Color.CYAN);
     gr.setPaint(Color.CYAN);
@@ -41,7 +42,18 @@ public class CatSocialAgent extends SocialAgent {
     // if cell has moved, set color to blue
     if(this.moved) {
       gr.setColor(Color.BLUE);
-      gr.setPaint(Color.BLUE);
+      gr.setPaint(Color.BLUE);      
+    }
+
+    // if category is 1, the colors will be overwritten
+    if(this.getCategory()==1) {
+      gr.setColor(Color.GRAY);
+      gr.setPaint(Color.GRAY);
+      
+      if(this.moved) {
+        gr.setColor(Color.BLACK);
+        gr.setPaint(Color.BLACK);
+      }
     }
 
     // draw circle in circle
@@ -87,5 +99,38 @@ public class CatSocialAgent extends SocialAgent {
 
     // return if number of elements w/ category same as this is more than remaining elements
     return counter>neighbours.size()-counter;
+  }
+
+  public static void main(String[] args) {
+    CatSocialAgent a=new CatSocialAgent(1, 1, 0, 15);
+    CatSocialAgent b=new CatSocialAgent(2, 2, 0, 15);
+    CatSocialAgent c=new CatSocialAgent(14, 14, 0, 15);
+    CatSocialAgent d=new CatSocialAgent(5, 5, 1, 15);
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    System.out.println(d);
+
+    ArrayList<Agent> neighbours=new ArrayList<Agent>();
+    neighbours.add(a);
+    neighbours.add(b);
+    neighbours.add(c);
+    neighbours.add(d);
+
+    System.out.println("More of same category as first agent? " + a.moreSameCategory(neighbours));
+
+    System.out.println("Change category of third agent to 1");
+    c=new CatSocialAgent(14, 14, 1, 15);
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    System.out.println(d);
+    neighbours=new ArrayList<Agent>();
+    neighbours.add(a);
+    neighbours.add(b);
+    neighbours.add(c);
+    neighbours.add(d);
+
+    System.out.println("More of same category as first cell? " + a.moreSameCategory(neighbours));
   }
 }
