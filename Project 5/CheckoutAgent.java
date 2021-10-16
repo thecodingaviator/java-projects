@@ -35,4 +35,18 @@ public class CheckoutAgent {
   public void draw(Graphics g) {
     g.fillRect(x, y-10*getNumInQueue(), 10, 10*this.getNumInQueue());
   }
+
+  public void updateState(Landscape scape) {
+    for(Customer e: this.queue) {
+      e.incrementTime();
+    }
+    Customer front=this.queue.peek();
+    if(front!=null) {
+      front.giveUpItem();
+      if(front.getNumItems()==0) {
+        scape.addFinishedCustomer(front);
+        this.queue.poll();
+      }
+    }
+  }
 }

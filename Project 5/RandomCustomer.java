@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 10/25/2021
+File: RandomCustomer.java
+Section: A
+*/
+
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -43,7 +43,7 @@ public class SocialAgentSimulation {
         e.updateState(scape);
       }
       display.repaint();
-      Thread.sleep(50);
+      Thread.sleep(10);
     }
 
   }
