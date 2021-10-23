@@ -39,9 +39,7 @@ public class SocialAgentSimulation {
 
     // update and repaint 20000 times
     for(int i=0; i<20000; i++) {
-      for(Agent e: scape.getList()) {
-        e.updateState(scape);
-      }
+      scape.updateAgents();
       display.repaint();
       Thread.sleep(10);
     }

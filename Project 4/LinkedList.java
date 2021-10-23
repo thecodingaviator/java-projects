@@ -51,9 +51,11 @@ public class LinkedList<T> implements Iterable<T> {
 
   public void addFirst(T item) {
     Node<T> temp=new Node<T>(item);
+    // if empty, make it first
     if(this.size()==0) {
       this.head=temp;
     }
+    // else add
     else {
       temp.setNext(this.head);
       this.head=temp;
@@ -63,9 +65,11 @@ public class LinkedList<T> implements Iterable<T> {
 
   public void addLast(T item) {
     Node<T> temp=new Node<T>(item);
+    // if empty, make first
     if(this.size()==0) {
       this.head=temp;
     }
+    // else add last
     else {
       this.getLast().setNext(temp);
     }
@@ -107,9 +111,11 @@ public class LinkedList<T> implements Iterable<T> {
   }
 
   public void remove(int index) {
+    // if index is 0, remove first element
     if(index==0) {
       this.head=this.head.getNext();
     }
+    // else remove whatever element this is
     else {
       Node<T> temp=this.head;
       for(int i=0; i<index-1; i++) {
@@ -205,5 +211,16 @@ public class LinkedList<T> implements Iterable<T> {
     list.remove(3);
     System.out.println("List: " + list);
     System.out.println("Size: " + list.size());
+
+    System.out.println("For shuffle, clear and add elements");
+    list.clear();
+    for(int i=1; i<16; i++) {
+      list.add(i-1, i);
+    }
+    System.out.println("List: " + list);
+    System.out.println("Size: " + list.size());
+    System.out.println("Shuffle now");
+    list.toShuffledList();
+    System.out.println("List: " + list);
   }
 }

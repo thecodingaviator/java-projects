@@ -39,9 +39,7 @@ public class CatSocialAgentSimulation {
 
     // update and repaint 200 times
     for(int i=0; i<200; i++) {
-      for(Agent e: scape.getList()) {
-        e.updateState(scape);
-      }
+      scape.updateAgents();
       display.repaint();
       Thread.sleep(50);
     }

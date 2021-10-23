@@ -25,7 +25,7 @@ public class SocialAgentSimulation {
     final int N=200;
     
     Random gen = new Random();
-    int radiusOfSensitivity=30;
+    int radiusOfSensitivity=15;
 
     // create N agents on landscape scape
     for(int i=0;i<N;i++) {
@@ -38,10 +38,8 @@ public class SocialAgentSimulation {
     display.repaint();
 
     // update and repaint 20000 times
-    for(int i=0; i<20000; i++) {
-      for(Agent e: scape.getList()) {
-        e.updateState(scape);
-      }
+    for(int i=0; i<500; i++) {
+      scape.updateAgents();
       display.repaint();
       Thread.sleep(10);
     }

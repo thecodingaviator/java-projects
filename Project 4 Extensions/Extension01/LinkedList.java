@@ -49,9 +49,11 @@ public class LinkedList<T> implements Iterable<T> {
 
   public void addFirst(T item) {
     Node<T> temp=new Node<T>(item);
+    // if empty, make it first
     if(this.size()==0) {
       this.head=temp;
     }
+    // else add
     else {
       temp.setNext(this.head);
       this.head=temp;
@@ -61,9 +63,11 @@ public class LinkedList<T> implements Iterable<T> {
 
   public void addLast(T item) {
     Node<T> temp=new Node<T>(item);
+    // if empty, make first
     if(this.size()==0) {
       this.head=temp;
     }
+    // else add last
     else {
       this.getLast().setNext(temp);
     }
@@ -105,9 +109,11 @@ public class LinkedList<T> implements Iterable<T> {
   }
 
   public void remove(int index) {
+    // if index is 0, remove first element
     if(index==0) {
       this.head=this.head.getNext();
     }
+    // else remove whatever element this is
     else {
       Node<T> temp=this.head;
       for(int i=0; i<index-1; i++) {
