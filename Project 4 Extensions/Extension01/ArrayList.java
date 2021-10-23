@@ -1,6 +1,6 @@
 /*
 Name: Parth Parth
-Date: 10/04/2021
+Date: 10/23/2021
 File: ArrayList.java
 Section: A
 */
@@ -163,7 +163,15 @@ public class ArrayList<T> implements Iterable<T> {
     list.add(18, 100);
     System.out.println(list);
     System.out.println("Adding 9 more 100s");
-    list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
+    list.add(2, 100);
     System.out.println(list);
   }
 }
