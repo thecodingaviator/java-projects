@@ -21,10 +21,15 @@ public class PickyCustomerSimulation {
     Landscape scape=new Landscape(500, 500, checkouts);
     LandscapeDisplay display=new LandscapeDisplay(scape);
 
-    for(int j=0; j<99; j++) {
-      Customer cust=new PickyCustomer(1+gen.nextInt(10), checkouts.size());
+    for(int i=1; i<=1000; i++) {
+      Customer cust=new PickyCustomer(1+gen.nextInt(9), checkouts.size());
       int choice=cust.chooseLine(checkouts);
       checkouts.get(choice).addCustomerToQueue(cust);
+      scape.updateCheckouts();
+      if(i%100==0) {
+        System.out.println("\nAfter " + i + " customers:");
+        scape.printFinishedCustomerStatistics();
+      }
       display.repaint();
       Thread.sleep(250);
     }

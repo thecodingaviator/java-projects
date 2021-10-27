@@ -21,11 +21,15 @@ public class Pick2CustomerSimulation {
     Landscape scape=new Landscape(500, 500, checkouts);
     LandscapeDisplay display=new LandscapeDisplay(scape);
 
-    for(int i=0; i<99; i++) {
-      Customer cust=new Pick2Customer(1+gen.nextInt(10));
+    for(int i=1; i<=1000; i++) {
+      Customer cust=new Pick2Customer(1+gen.nextInt(8));
       int choice=cust.chooseLine(checkouts);
       checkouts.get(choice).addCustomerToQueue(cust);
       scape.updateCheckouts();
+      if(i%100==0) {
+        System.out.println("\nAfter " + i + " customers:");
+        scape.printFinishedCustomerStatistics();
+      }
       display.repaint();
       Thread.sleep(250);
     }

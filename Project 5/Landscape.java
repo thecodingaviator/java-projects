@@ -31,7 +31,7 @@ public class Landscape {
   }
 
   public String toString() {
-    return "Checkouts: " + this.list.size() + "Finished: " + this.completed.size();
+    return "Checkouts: " + this.list.size() + " Finished: " + this.completed.size();
   }
 
   public void addFinishedCustomer(Customer c) {
@@ -45,9 +45,26 @@ public class Landscape {
   }
 
   public void updateCheckouts() {
-    Landscape scape=new Landscape(500, 500, list);
     for (CheckoutAgent e: this.list) {
-      e.updateState(scape);
+      e.updateState(this);
     }
+  }
+
+  public void printFinishedCustomerStatistics() {
+    double time=0.0;
+    for(Customer e: this.completed) {
+      time+=e.getTime();
+    }
+    time/=this.completed.size();
+    System.out.println("Average time: " + time);
+
+    double sd=0.0;
+    for(Customer e: this.completed) {
+      sd+=Math.pow(e.getTime()-time, 2);
+    }
+    sd/=this.completed.size()-1;
+    sd=Math.sqrt(sd);
+
+    System.out.println("Standard deviation: " + sd);
   }
 }
