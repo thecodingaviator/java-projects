@@ -5,11 +5,14 @@ File: MyQueue.java
 Section: A
 */
 
+// CLASS NOT BEIN USED FOR THIS EXTENSION
+
 import java.util.Iterator;
 
 public class MyQueue<T> implements Iterable<T> {
   private Node<T> head;
   private Node<T> tail;
+
 
   MyQueue() {
     this.head=null;
