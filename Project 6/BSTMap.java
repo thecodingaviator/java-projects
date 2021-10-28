@@ -32,7 +32,11 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   }
 
   public V get(K key) {
-    return this.root.get(key, comp);
+    if (root == null) {
+      return null;
+    } else {
+      return this.root.get(key, this.comp);
+    }
   }
 
   private class TNode {
@@ -144,6 +148,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
 
   @Override
   public ArrayList<KeyValuePair<K, V>> entrySet() {
+    this.nodes.clear();
     traverse(this.root);
     return this.nodes;
   }
@@ -152,8 +157,8 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     if (node == null) {
       return;
     }
-    traverse(node.left);
     nodes.add(node.data);
+    traverse(node.left);
     traverse(node.right);
   }
 
@@ -166,6 +171,32 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   @Override
   public void clear() {
     this.root = null;
+  }
+
+  public String inorder_driver() {
+    return this.inorder(this.root);
+  }
+
+  public String inorder(TNode root) {
+    if(root!=null) {
+      return inorder(root.left) + " " + root.data.key + " " + inorder(root.right);
+    }
+    else { 
+      return "";
+    }
+  }
+
+  public String preorder_driver() {
+    return this.preorder(this.root);
+  }
+
+  public String preorder(TNode root) {
+    if(root!=null) {
+      return root.data.getKey() + " Frequency: " + root.data.getValue() + "\n" + preorder(root.left) + preorder(root.right);
+    }
+    else { 
+      return "";
+    }
   }
 
   public static void main(String[] argv) {
