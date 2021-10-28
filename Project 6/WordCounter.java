@@ -33,7 +33,8 @@ public class WordCounter {
             word = word.toLowerCase();
             if(this.map.containsKey(word)) {
               this.map.put(word, this.map.get(word) + 1);
-            } else {
+            }
+        else {
               this.map.put(word, 1);
             }
             this.wordCount++;
@@ -60,7 +61,8 @@ public class WordCounter {
   public int getCount(String word) {
     if (this.map.containsKey(word)) {
       return this.map.get(word);
-    } else {
+    }
+        else {
       return 0;
     }
   }
@@ -68,7 +70,8 @@ public class WordCounter {
   public double getFrequency(String word) {
     if (this.map.containsKey(word)) {
       return (double) this.map.get(word) / this.wordCount;
-    } else {
+    }
+        else {
       return 0;
     }
   }
@@ -105,7 +108,8 @@ public class WordCounter {
         String[] words = line.split(" ");
         if(words[0].equals("totalWordCount:")) {
           this.wordCount = Integer.parseInt(words[1]);
-        } else {
+        }
+        else {
           this.map.put(words[0], Integer.parseInt(words[1]));
         }
         line = br.readLine();
@@ -120,10 +124,12 @@ public class WordCounter {
 
   public static void main(String ar[]) {
     WordCounter wc = new WordCounter();
-    wc.analyze("counttest.txt");
-    System.out.println(wc.inorder());
-    wc.writeWordCountFile("counts_ct.txt");
-    wc.readWordCountFile("counts_ct.txt");
-    wc.writeWordCountFile("counts_ct_v2.txt");
+    for(String filename: ar) {
+      long time1=System.currentTimeMillis();
+      wc.analyze(filename);
+      long time2=System.currentTimeMillis();
+      System.out.println(filename + " took: " + (time2-time1) + "ms");
+      wc.writeWordCountFile(filename.substring(0, filename.length()-4)+"_analyzed.txt");
+    }
   }
 }
