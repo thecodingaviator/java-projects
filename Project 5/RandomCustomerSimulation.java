@@ -27,11 +27,11 @@ public class RandomCustomerSimulation {
       checkouts.get(choice).addCustomerToQueue(cust);
       scape.updateCheckouts();
       if(i%100==0) {
-        System.out.println("\nAfter " + i + " customers:");
+        System.out.println("\nAfter " + i + " time-steps:");
         scape.printFinishedCustomerStatistics();
       }
       display.repaint();
-      Thread.sleep(250);
+      Thread.sleep(0);
     }
   }
 }

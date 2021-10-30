@@ -27,7 +27,7 @@ public class Pick2CustomerSimulation {
       checkouts.get(choice).addCustomerToQueue(cust);
       scape.updateCheckouts();
       if(i%100==0) {
-        System.out.println("\nAfter " + i + " customers:");
+        System.out.println("\nAfter " + i + " time-steps:");
         scape.printFinishedCustomerStatistics();
       }
       display.repaint();
