@@ -7,7 +7,6 @@ Section: A
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Landscape {
   private int w;
@@ -35,7 +34,7 @@ public class Landscape {
   }
 
   public void addFinishedCustomer(Customer c) {
-    this.completed.add(c);
+    this.completed.addLast(c);
   }
 
   public void draw(Graphics g) {

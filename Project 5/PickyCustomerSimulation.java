@@ -22,7 +22,7 @@ public class PickyCustomerSimulation {
     LandscapeDisplay display=new LandscapeDisplay(scape);
 
     for(int i=1; i<=1000; i++) {
-      Customer cust=new PickyCustomer(1+gen.nextInt(9), checkouts.size());
+      Customer cust=new PickyCustomer(1+gen.nextInt(8), checkouts.size());
       int choice=cust.chooseLine(checkouts);
       checkouts.get(choice).addCustomerToQueue(cust);
       scape.updateCheckouts();

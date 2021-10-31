@@ -31,7 +31,7 @@ public class RandomCustomerSimulation {
         scape.printFinishedCustomerStatistics();
       }
       display.repaint();
-      Thread.sleep(0);
+      Thread.sleep(250);
     }
   }
 }
