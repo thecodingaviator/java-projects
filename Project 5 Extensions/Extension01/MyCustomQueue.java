@@ -10,7 +10,7 @@ public class MyCustomQueue<T> {
   private int size;
 
   public MyCustomQueue() {
-    this.queue = new Object[10];
+    this.queue = new Object[16];
     this.size = 0;
   }
 
