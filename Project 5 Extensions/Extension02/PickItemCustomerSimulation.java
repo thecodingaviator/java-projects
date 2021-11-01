@@ -21,7 +21,7 @@ public class PickItemCustomerSimulation {
     Landscape scape=new Landscape(500, 500, checkouts);
     LandscapeDisplay display=new LandscapeDisplay(scape);
 
-    for(int i=1; i<=1000; i++) {
+    for(int i=1; i<=2000; i++) {
       int customers=0;
 
       for(CheckoutAgent checkout: checkouts) {
@@ -39,7 +39,7 @@ public class PickItemCustomerSimulation {
         scape.printFinishedCustomerStatistics();
       }
       display.repaint();
-      Thread.sleep(250);
+      Thread.sleep(0);
     }
   }
 }
