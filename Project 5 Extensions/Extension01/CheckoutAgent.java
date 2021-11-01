@@ -19,7 +19,7 @@ public class CheckoutAgent {
   }
 
   public void addCustomerToQueue(Customer c) {
-    queue.offer(c);
+    this.queue.offer(c);
   }
 
   public int getNumInQueue() {

@@ -15,12 +15,12 @@ public class Pick2Customer extends Customer {
 
   public int chooseLine(ArrayList<CheckoutAgent> checkouts) {
     Random gen=new Random();
-    int a=0;
-    int b=0;
-    do {
-      a=gen.nextInt(checkouts.size());
+    int a=gen.nextInt(checkouts.size());
+    int b=gen.nextInt(checkouts.size());
+    
+    while(a==b){
       b=gen.nextInt(checkouts.size());
-    } while(a!=b);
+    }
 
     return checkouts.get(a).getNumInQueue()<checkouts.get(b).getNumInQueue()?a:b;
   }

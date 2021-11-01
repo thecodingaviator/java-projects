@@ -31,7 +31,7 @@ public class PickyCustomerSimulation {
         scape.printFinishedCustomerStatistics();
       }
       display.repaint();
-      Thread.sleep(250);
+      Thread.sleep(0);
     }
   }
 }

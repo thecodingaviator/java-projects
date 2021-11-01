@@ -19,17 +19,11 @@ public class CheckoutAgent {
   }
 
   public void addCustomerToQueue(Customer c) {
-    queue.offer(c);
+    this.queue.offer(c);
   }
 
   public int getNumInQueue() {
-    int items=0;
-    // will loop over each item
-    for(Customer e: queue) {
-      // so i can just count them
-      items++;
-    }
-    return items;
+    return this.queue.size();
   }
 
   public void draw(Graphics g) {

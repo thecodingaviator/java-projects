@@ -94,7 +94,7 @@ public class LinkedList<T> implements Iterable<T> {
 
       current.setNext(temp.getNext());
       temp.setNext(current);
-      size++;
+      this.size++;
     }
   }
 
@@ -152,8 +152,8 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public T next() {
-      T item=nextNode.getThing();
-      nextNode=nextNode.next;
+      T item=this.nextNode.getThing();
+      this.nextNode=nextNode.next;
       return item;
     }
   }

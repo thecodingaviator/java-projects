@@ -10,10 +10,12 @@ import java.util.Iterator;
 public class MyQueue<T> implements Iterable<T> {
   private Node<T> head;
   private Node<T> tail;
+  private int size;
 
   MyQueue() {
     this.head=null;
     this.tail=null;
+    this.size=0;
   }
 
   private class Node<T> {
@@ -53,6 +55,7 @@ public class MyQueue<T> implements Iterable<T> {
     if(this.head==null) {
       this.head=new Node<T>(item);
       this.tail=this.head;
+      this.size++;
       return true;
     }
     // else add to end
@@ -61,6 +64,7 @@ public class MyQueue<T> implements Iterable<T> {
       newNode.setPrev(this.tail);
       this.tail.setNext(newNode);
       this.tail=newNode;
+      this.size++;
       return true;
     }
   }
@@ -92,6 +96,7 @@ public class MyQueue<T> implements Iterable<T> {
         this.head=this.head.getNext();
         this.head.setPrev(null);
       }
+      this.size--;
       return data;
     }
   }
@@ -104,12 +109,12 @@ public class MyQueue<T> implements Iterable<T> {
     }
 
     public boolean hasNext() {
-      return nextNode!=null;
+      return this.nextNode!=null;
     }
 
     public T next() {
-      T item=nextNode.getData();
-      nextNode=nextNode.next;
+      T item=this.nextNode.getData();
+      this.nextNode=nextNode.next;
       return item;
     }
   }
@@ -117,6 +122,10 @@ public class MyQueue<T> implements Iterable<T> {
   @Override
   public Iterator<T> iterator() {
     return new QueueIterator(this.head);
+  }
+
+  public int size() {
+    return this.size;
   }
 
   public static void main(String[] args) {
