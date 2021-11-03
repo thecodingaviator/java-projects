@@ -228,12 +228,64 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     return this.preorder(this.root);
   }
 
-  private String preorder(TNode root) {
+  public String preorder(TNode root) {
     if(root != null) {
       return root.data.getKey() + " Frequency: " + root.data.getValue() + "\n" + preorder(root.left) + preorder(root.right);
     }
     else {
       return "";
+    }
+  }
+
+  public String toString() {
+    return this.preorder_driver();
+  }
+
+  public void remove(K key) {
+    this.root=this.remove(this.root, key);
+  }
+
+  private TNode remove(TNode root, K key) {
+    if(root==null) {
+      return null;
+    }
+
+    if(this.comp.compare(key, root.data.getKey())==0) {
+      if(root.left==null && root.right==null) {
+        return null;
+      }
+
+      if(root.left==null) {
+        return root.right;
+      }
+
+      if(root.right==null) {
+        return root.left;
+      }
+
+      TNode minimum=this.findMinimum(root.right);
+      root.data.setKey(minimum.data.getKey());
+      root.data.setValue(minimum.data.getValue());
+      root.right=this.remove(root.right, minimum.data.getKey());
+      return root;
+    }
+
+    if(this.comp.compare(key, root.data.getKey())<0) {
+      root.left=this.remove(root.left, key);
+      return root;
+    }
+    else {
+      root.right=this.remove(root.right, key);
+      return root;
+    }
+  }
+
+  private TNode findMinimum(TNode root) {
+    if(root.left==null) {
+      return root;
+    }
+    else {
+      return findMinimum(root.left);
     }
   }
 
@@ -252,7 +304,12 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     bst.put("6", 7);
     bst.put("9", 9);
 
+
     System.out.println(bst.get("15"));
+    System.out.println(bst.toString());
+    System.out.println("Size: " + bst.size(bst.root));
+    bst.remove("6");
+    System.out.println(bst.toString());
     System.out.println("Size: " + bst.size(bst.root));
   }
 }
