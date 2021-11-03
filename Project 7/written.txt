@@ -1,0 +1,11 @@
+totalWordCount: 24
+Key: best Value: 1
+Key: it Value: 4
+Key: was Value: 4
+Key: the Value: 4
+Key: age Value: 2
+Key: of Value: 4
+Key: foolishness Value: 1
+Key: worst Value: 1
+Key: times Value: 2
+Key: wisdom Value: 1
