@@ -8,15 +8,15 @@ public class HashMap<K, V> implements MapSet<K, V> {
   private int collisions;
   private int maxSize;
 
-  public HashMap(Comparator<K> comp) {
-    this.comp = comp;
+  public HashMap(Comparator<K> incomp) {
+    this.comp = incomp;
     this.size=this.collisions=0;
     this.buckets = new ArrayList[16];
     this.maxSize=16;
   }
 
-  public HashMap(Comparator<K> comp, int capacity) {
-    this.comp = comp;
+  public HashMap(Comparator<K> incomp, int capacity) {
+    this.comp = incomp;
     this.size=this.collisions=0;
     this.buckets = new ArrayList[capacity];
     this.maxSize=capacity;
