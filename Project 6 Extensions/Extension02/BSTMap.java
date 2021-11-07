@@ -8,6 +8,8 @@ CS 231 Project 6
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BSTMap<K, V> implements MapSet<K, V> {
 
@@ -228,7 +230,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     return this.preorder(this.root);
   }
 
-  public String preorder(TNode root) {
+  private String preorder(TNode root) {
     if(root != null) {
       return root.data.getKey() + " Frequency: " + root.data.getValue() + "\n" + preorder(root.left) + preorder(root.right);
     }
@@ -238,7 +240,24 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   }
 
   public String toString() {
-    return this.preorder_driver();
+    Queue<TNode> q=new LinkedList<TNode>();
+    q.add(this.root);
+    String result="";
+
+    while(q.size()>0) {
+      TNode temp=q.remove();
+      result+=temp.data+"\n";
+
+      if(temp.left!=null) {
+        q.add(temp.left);
+      }
+
+      if(temp.right!=null) {
+        q.add(temp.right);
+      }
+    }
+
+    return result;
   }
 
   public void remove(K key) {
@@ -246,27 +265,35 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   }
 
   private TNode remove(TNode root, K key) {
+    // if root empty, return null
     if(root==null) {
       return null;
     }
 
+    // if key found
     if(this.comp.compare(key, root.data.getKey())==0) {
+      // if no children, detach from parent
       if(root.left==null && root.right==null) {
         return null;
       }
 
+      // if only right subtree, return right subtree
       if(root.left==null) {
         return root.right;
       }
-
+      // if only left subtree, return left subtree
       if(root.right==null) {
         return root.left;
       }
 
+      // if both children, find inorder successor
       TNode minimum=this.findMinimum(root.right);
+      // replace current node with inorder successor
       root.data.setKey(minimum.data.getKey());
       root.data.setValue(minimum.data.getValue());
+      // remove inorder successor
       root.right=this.remove(root.right, minimum.data.getKey());
+      // return root
       return root;
     }
 
@@ -304,12 +331,13 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     bst.put("6", 7);
     bst.put("9", 9);
 
-
     System.out.println(bst.get("15"));
-    System.out.println(bst.toString());
+    System.out.println(bst.inorder_driver());
     System.out.println("Size: " + bst.size(bst.root));
+    System.out.println("Removing 6");
     bst.remove("6");
-    System.out.println(bst.toString());
+    System.out.println(bst.inorder_driver());
     System.out.println("Size: " + bst.size(bst.root));
+    System.out.println("Level-by-level traversal: \n" + bst.toString());
   }
 }

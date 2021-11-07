@@ -143,6 +143,7 @@ public class WordCounter {
       wc.analyze(filename);
       long time2=System.currentTimeMillis();
       System.out.println(filename + " took: " + (time2-time1) + "ms");
+      System.out.println("Unique word count for this file is: " + wc.getUniqueWordCount());
       wc.writeWordCountFile(filename.substring(0, filename.length()-4)+"_analyzed.txt");
     }
   }

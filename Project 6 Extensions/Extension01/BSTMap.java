@@ -316,6 +316,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     System.out.println(bst.get("15"));
     System.out.println(bst.toString());
     System.out.println("Size: " + bst.size(bst.root));
+    System.out.println("Removing 6");
     bst.remove("6");
     System.out.println(bst.toString());
     System.out.println("Size: " + bst.size(bst.root));
