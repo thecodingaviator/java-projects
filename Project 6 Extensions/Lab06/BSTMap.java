@@ -34,6 +34,15 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     }
   }
 
+  public int size(TNode root) {
+    if(root==null) {
+      return 0;
+    }
+    else {
+      return 1+size(root.left)+size(root.right);
+    }
+  }
+
   public V get(K key) {
     if(root==null) {
       return null;
@@ -219,7 +228,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     return this.preorder(this.root);
   }
 
-  public String preorder(TNode root) {
+  private String preorder(TNode root) {
     if(root != null) {
       return root.data.getKey() + " Frequency: " + root.data.getValue() + "\n" + preorder(root.left) + preorder(root.right);
     }
@@ -244,5 +253,6 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     bst.put("9", 9);
 
     System.out.println(bst.get("15"));
+    System.out.println("Size: " + bst.size(bst.root));
   }
 }
