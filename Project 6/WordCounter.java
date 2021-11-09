@@ -24,6 +24,8 @@ public class WordCounter {
 
   public void analyze(String filename) {
     try {
+      // cleap map
+      this.map.clear();
       BufferedReader br = new BufferedReader(new FileReader(filename));
       // read first line
       String line = br.readLine();
