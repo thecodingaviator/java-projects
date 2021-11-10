@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 11/10/2021
+File: WordCounter2.java
+Section: A
+*/
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -11,10 +18,10 @@ public class WordCounter2 {
 
   public WordCounter2(String data_structure) {
     if(data_structure.equals("bst")) {
-      map = new BSTMap<String, Integer>(new AscendingString());
+      this.map = new BSTMap<String, Integer>(new AscendingString());
     }
     else {
-      map = new HashMap<String, Integer>(new AscendingString());
+      this.map = new HashMap<String, Integer>(new AscendingString());
     }
   }
 
@@ -29,10 +36,12 @@ public class WordCounter2 {
       // while lines remain
       while (line != null) {
         // split line into words
-        String[] tokens = line.split("[^a-zA-Z]+");
+        String[] tokens = line.split("[^a-zA-Z0-9']");
         // for each each word, make it to lowercase and add to arraylist
-        for (String token : tokens) {
-          words.add(token.toLowerCase());
+        for (String word : tokens) {
+          if(word.length() > 0) {
+            words.add(word.toLowerCase());
+          }
         }
         // read next line
         line = bufferedReader.readLine();
@@ -47,22 +56,23 @@ public class WordCounter2 {
   }
 
   public double buildMap(ArrayList<String> words) {
+    this.map.clear();
     long startTime = System.nanoTime();
     for (String word : words) {
-      int count=map.get(word)!=null?map.get(word)+1:1;
-      map.put(word, count);
+      int count = this.map.get(word) != null ? this.map.get(word) + 1 : 1;
+      this.map.put(word, count);
     }
     long endTime = System.nanoTime();
     return (endTime - startTime) / 1000000.0;
   }
 
   public void clearMap() {
-    map.clear();
+    this.map.clear();
   }
 
   public int totalWordCount() {
-    int size=0;
-    ArrayList<KeyValuePair<String, Integer>> list = map.entrySet();
+    int size = 0;
+    ArrayList<KeyValuePair<String, Integer>> list = this.map.entrySet();
     for(KeyValuePair<String, Integer> pair : list) {
       size += pair.getValue();
     }
@@ -70,28 +80,28 @@ public class WordCounter2 {
   }
 
   public int uniqueWordCount() {
-    return map.size();
+    return this.map.size();
   }
 
   public int getCount(String word) {
-    return map.get(word)!=null?map.get(word):0;
+    return this.map.get(word) != null ? this.map.get(word) : 0;
   }
 
   public double getFrequency(String word) {
-    if(getCount(word)==0) {
+    if(getCount(word) == 0) {
       return 0;
     }
-    return (double)getCount(word)/totalWordCount();
+    return (double)this.getCount(word)/this.totalWordCount();
   }
 
   public boolean writeWordCount(String filename) {
     try {
       FileWriter fileWriter = new FileWriter(filename);
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      ArrayList<KeyValuePair<String, Integer>> list = map.entrySet();
+      ArrayList<KeyValuePair<String, Integer>> list = this.map.entrySet();
       bufferedWriter.write("totalWordCount: " + this.totalWordCount() + "\n");
       for(KeyValuePair<String, Integer> pair : list) {
-        bufferedWriter.write(pair+"\n");
+        bufferedWriter.write(pair.getKey() + " " + pair.getValue() + "\n");
       }
       bufferedWriter.close();
       return true;
@@ -110,7 +120,7 @@ public class WordCounter2 {
       while (line != null) {
         String[] tokens = line.split("[^a-zA-Z]+");
         for (String token : tokens) {
-          int count=map.get(token)!=null?map.get(token)+1:1;
+          int count = this.map.get(token) != null ? this.map.get(token) + 1 : 1;
           map.put(token, count);
         }
         line = bufferedReader.readLine();
@@ -127,11 +137,16 @@ public class WordCounter2 {
   }
 
   public static void main(String[] args) {
-    WordCounter2 wc=new WordCounter2("hash");
-    ArrayList<String> words=wc.readWords("counttest.txt");
-    System.out.println("Time to build map: " + wc.buildMap(words) + " ms"); 
-    System.out.println("Total word count: " + wc.totalWordCount());
-    System.out.println("Unique word count: " + wc.uniqueWordCount());
-    wc.writeWordCount("written.txt");  
+    WordCounter2 wc = new WordCounter2("hash");
+    for(String filename: args) {
+      ArrayList<String> words = wc.readWords(filename);
+      for(int i = 0; i < 5; i++) {
+        System.out.println(filename + " took: " + wc.buildMap(words) + "ms");
+      }
+      System.out.println("Total word count: " + wc.totalWordCount());
+      System.out.println("Unique word count: " + wc.uniqueWordCount());
+      System.out.println("Collisions: " + ((HashMap) wc.map).getCollisions());
+      wc.writeWordCount(filename.substring(0, filename.length() - 4) + "_analyzed.txt");  
+    }
   }
 }
