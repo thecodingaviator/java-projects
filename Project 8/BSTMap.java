@@ -237,6 +237,19 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     }
   }
 
+  public int depth() {
+    return this.depth(this.root);
+  }
+
+  private int depth(TNode root) {
+    if(root==null) {
+      return 0;
+    }
+    else {
+      return 1+Math.max(depth(root.left), depth(root.right));
+    }
+  }
+
   public static void main(String[] argv) {
     BSTMap<String, Integer> bst=new BSTMap<String, Integer>(new AscendingString());
 

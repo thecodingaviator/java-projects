@@ -48,7 +48,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
     this.buckets[index].add(new KeyValuePair<K, V>(key, value));
     this.size++;
     // rehash if necessary
-    if(this.size>=this.maxSize*0.75){
+    if(this.size==this.maxSize-1){
       this.rehash();
     }
     return null;

@@ -26,6 +26,7 @@ public class WordCounter {
     try {
       // cleap map
       this.map.clear();
+      this.wordCount = 0;
       BufferedReader br = new BufferedReader(new FileReader(filename));
       // read first line
       String line = br.readLine();

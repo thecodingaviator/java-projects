@@ -48,7 +48,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
     this.buckets[index].add(new KeyValuePair<K, V>(key, value));
     this.size++;
     // rehash if necessary
-    if(this.size>=this.maxSize*0.75){
+    if(this.size==this.maxSize-1){
       this.rehash();
     }
     return null;
@@ -71,7 +71,15 @@ public class HashMap<K, V> implements MapSet<K, V> {
   }
 
   private int getIndex(K key) {
-    return Math.abs(key.hashCode()) % this.buckets.length;
+    return this.customHashCode(key) % this.buckets.length;
+  }
+
+  private int customHashCode(K key) {
+    int hash = 0;
+    for (int i = 0; i < key.toString().length(); i++) {
+      hash += key.toString().charAt(i);
+    }
+    return hash;
   }
 
   @Override
