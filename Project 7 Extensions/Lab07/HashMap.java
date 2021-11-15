@@ -51,7 +51,6 @@ public class HashMap<K, V> implements MapSet<K, V> {
     if(this.size>=this.maxSize*0.75){
       this.rehash();
     }
-      this.getCollisions();
     return null;
   }
 
@@ -125,7 +124,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
 
   public int getCollisions() {
     for(ArrayList<KeyValuePair<K, V>> bucket : this.buckets) {
-      if(bucket!=null && bucket.size()>1) {
+      if(bucket != null && bucket.size() > 1) {
         this.collisions++;
       }
     }
