@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HashMap<K, V> implements MapSet<K, V> {
+
+  // memory freed when HashMap is garbage collected
   private Comparator<K> comp;
   private int size;
   private ArrayList<KeyValuePair<K, V>>[] buckets;
@@ -34,7 +36,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
     int index = getIndex(key);
     // if index is empty, create new arraylist
     if (this.buckets[index] == null) {
-      this.buckets[index] = new ArrayList<KeyValuePair<K, V>>();
+      this.buckets[index] = new ArrayList<KeyValuePair<K, V>>(); // memory freed when HashMap is garbage collected
     }
     // search for key. if already exists, update and return old value
     for (KeyValuePair<K, V> pair : this.buckets[index]) {
@@ -45,7 +47,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
       }
     }
     // if key not found, add to arraylist
-    this.buckets[index].add(new KeyValuePair<K, V>(key, value));
+    this.buckets[index].add(new KeyValuePair<K, V>(key, value)); // memory freed when HashMap is garbage collected
     this.size++;
     // rehash if necessary
     if(this.size==this.maxSize-1){
@@ -81,7 +83,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
 
   @Override
   public ArrayList<K> keySet() {
-    ArrayList<K> keys = new ArrayList<K>();
+    ArrayList<K> keys = new ArrayList<K>(); // memory freed when method ends
     for (KeyValuePair<K, V> kvp : this.entrySet()) {
       keys.add(kvp.key);
     }
@@ -90,7 +92,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
 
   @Override
   public ArrayList<V> values() {
-    ArrayList<V> values = new ArrayList<V>();
+    ArrayList<V> values = new ArrayList<V>(); // memory freed when method ends
     for (KeyValuePair<K, V> kvp : this.entrySet()) {
       values.add(kvp.value);
     }
@@ -99,7 +101,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
 
   @Override
   public ArrayList<KeyValuePair<K, V>> entrySet() {
-    ArrayList<KeyValuePair<K, V>> entries = new ArrayList<KeyValuePair<K, V>>();
+    ArrayList<KeyValuePair<K, V>> entries = new ArrayList<KeyValuePair<K, V>>(); // memory freed when method ends
     for (ArrayList<KeyValuePair<K, V>> bucket : this.buckets) {
       if (bucket != null) {
         for (KeyValuePair<K, V> kvp : bucket) {
@@ -142,11 +144,11 @@ public class HashMap<K, V> implements MapSet<K, V> {
     return this.collisions;
   }
   
-  public void rehash() {
+  private void rehash() {
     // create a copy of the old buckets
-    ArrayList<KeyValuePair<K, V>>[] oldBuckets = this.buckets;
+    ArrayList<KeyValuePair<K, V>>[] oldBuckets = this.buckets; // memory for the assigned reference freed when method ends
     // create new buckets with double capacity
-    this.buckets = new ArrayList[oldBuckets.length*2];
+    this.buckets = new ArrayList[oldBuckets.length*2]; // memory freed when HashMap is garbage collected
     this.size=this.collisions=0;
     this.maxSize*=2;
     // rehash all entries
@@ -161,7 +163,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
 
   @Override
   public String toString() {
-    String s = "";
+    String s = ""; // memory freed when the method in which it is called is garbage collected
     s += "HashMap: " + this.size + " entries, " + this.collisions + " collisions\n";
     for (ArrayList<KeyValuePair<K, V>> bucket : this.buckets) {
       if (bucket != null) {

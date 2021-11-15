@@ -113,16 +113,12 @@ public class WordCounter2 {
 
   public boolean readWordCount(String filename) {
     this.map.clear();
-    int wordCount = 0;
     try {
       FileReader fileReader = new FileReader(filename);
       BufferedReader br = new BufferedReader(fileReader);
       
       String line = br.readLine();
       String[] words = line.split(" ");
-      if(words[0].equals("totalWordCount:")) {
-        wordCount = Integer.parseInt(words[1]);
-      }
       line = br.readLine();
       while (line != null) {
         words = line.split(" ");

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WordCounter {
+
+  // memory freed when WordCounter object is destroyed and garbage collected
   BSTMap<String, Integer> map;
   int wordCount;
 
@@ -27,13 +29,13 @@ public class WordCounter {
       // cleap map
       this.map.clear();
       this.wordCount = 0;
-      BufferedReader br = new BufferedReader(new FileReader(filename));
+      BufferedReader br = new BufferedReader(new FileReader(filename)); // memory freed when br is destroyed and garbage collected
       // read first line
       String line = br.readLine();
       // while lines remain
       while(line != null) {
         // split word
-        String[] words = line.split("[^a-zA-Z0-9']");
+        String[] words = line.split("[^a-zA-Z0-9']"); // memory freed when the while block ends
         // for each word
         for (String word : words) {
           // if word is not empty
@@ -92,9 +94,9 @@ public class WordCounter {
 
   public void writeWordCountFile(String filename) {
     // get words in preorder
-    ArrayList<KeyValuePair<String, Integer>> list=this.map.entrySet();
+    ArrayList<KeyValuePair<String, Integer>> list=this.map.entrySet(); // memory freed when method ends
     try {
-      FileWriter fw=new FileWriter(filename);
+      FileWriter fw=new FileWriter(filename); // memory freed when fw is destroyed and garbage collected (when method ends)
       fw.write("totalWordCount: "+this.wordCount+"\n");
       // write word, frequency to file
       for(KeyValuePair<String, Integer> pair:list) {
@@ -113,14 +115,14 @@ public class WordCounter {
     this.wordCount = 0;
 
     try {
-      File file = new File(filename);
-      BufferedReader br = new BufferedReader(new FileReader(file));
+      File file = new File(filename); // memory freed when file is destroyed and garbage collected
+      BufferedReader br = new BufferedReader(new FileReader(file)); // memory freed when br is destroyed and garbage collected
       // get first line
       String line = br.readLine();
       // while lines remain
       while(line != null) {
         // split word
-        String[] words = line.split(" ");
+        String[] words = line.split(" "); // memory freed when the while block ends
         // if first line is totalWordCount, use it to update total word count
         if(words[0].equals("totalWordCount:")) {
           this.wordCount = Integer.parseInt(words[1]);

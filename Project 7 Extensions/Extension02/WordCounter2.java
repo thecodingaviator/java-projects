@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WordCounter2 {
+
+  // memory freed when WordCounter2 is garbage collected
   MapSet<String, Integer> map;
 
   public WordCounter2(String data_structure) {
@@ -29,6 +31,7 @@ public class WordCounter2 {
     ArrayList<String> words = new ArrayList<String>();
 
     try {
+      // memory freed when try block ends
       FileReader fileReader = new FileReader(filename);
       BufferedReader br = new BufferedReader(fileReader);
       // get first line
@@ -36,7 +39,7 @@ public class WordCounter2 {
       // while lines remain
       while (line != null) {
         // split line into words
-        String[] tokens = line.split("[^a-zA-Z0-9']");
+        String[] tokens = line.split("[^a-zA-Z0-9']"); // memory freed when while block ends
         // for each each word, make it to lowercase and add to arraylist
         for (String word : tokens) {
           if(word.length() > 0) {
@@ -57,7 +60,7 @@ public class WordCounter2 {
 
   public double buildMap(ArrayList<String> words) {
     this.map.clear();
-    long startTime = System.nanoTime();
+    long startTime = System.nanoTime(); // memory freed when method ends
     for (String word : words) {
       int count = this.map.get(word) != null ? this.map.get(word) + 1 : 1;
       this.map.put(word, count);
@@ -72,7 +75,7 @@ public class WordCounter2 {
 
   public int totalWordCount() {
     int size = 0;
-    ArrayList<KeyValuePair<String, Integer>> list = this.map.entrySet();
+    ArrayList<KeyValuePair<String, Integer>> list = this.map.entrySet(); // memory freed when method ends
     for(KeyValuePair<String, Integer> pair : list) {
       size += pair.getValue();
     }
@@ -96,6 +99,7 @@ public class WordCounter2 {
 
   public boolean writeWordCount(String filename) {
     try {
+      // memory freed when try block ends
       FileWriter fileWriter = new FileWriter(filename);
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
       ArrayList<KeyValuePair<String, Integer>> list = this.map.entrySet();
@@ -113,16 +117,13 @@ public class WordCounter2 {
 
   public boolean readWordCount(String filename) {
     this.map.clear();
-    int wordCount = 0;
     try {
+      // memory freed when try block ends
       FileReader fileReader = new FileReader(filename);
       BufferedReader br = new BufferedReader(fileReader);
       
       String line = br.readLine();
       String[] words = line.split(" ");
-      if(words[0].equals("totalWordCount:")) {
-        wordCount = Integer.parseInt(words[1]);
-      }
       line = br.readLine();
       while (line != null) {
         words = line.split(" ");

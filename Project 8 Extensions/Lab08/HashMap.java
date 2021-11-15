@@ -126,7 +126,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
     return this.collisions;
   }
   
-  public void rehash() {
+  private void rehash() {
     ArrayList<KeyValuePair<K, V>>[] oldBuckets = this.buckets;
     this.buckets = new ArrayList[oldBuckets.length*2];
     this.size=this.collisions=0;

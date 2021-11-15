@@ -11,9 +11,9 @@ import java.util.Comparator;
 
 public class BSTMap<K, V> implements MapSet<K, V> {
 
-  private TNode root;
-  private Comparator<K> comp;
-  private ArrayList<KeyValuePair<K, V>> nodes;
+  private TNode root; // memory freed when BSTMap is garbage collected
+  private Comparator<K> comp; // memory freed when BSTMap is garbage collected
+  private ArrayList<KeyValuePair<K, V>> nodes; // memory freed when BSTMap is garbage collected
 
   public BSTMap(Comparator<K> comp) {
     this.comp=comp;
@@ -24,7 +24,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   public V put(K key, V value) {
     // if root is null, create new node
     if(root==null) {
-      root=new TNode(key, value);
+      root=new TNode(key, value); // memory freed when BSTMap is garbage collected
       nodes.add(new KeyValuePair<K, V>(key, value));
       return null;
     }
@@ -57,7 +57,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
     KeyValuePair<K, V> data;
 
     public TNode(K k, V v) {
-      this.data=new KeyValuePair<K, V>(k, v);
+      this.data=new KeyValuePair<K, V>(k, v); // memory freed when BSTMap is garbage collected
       this.left=this.right=null;
     }
 
@@ -110,7 +110,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
       // if key is less than current, go left
       else if(comp.compare(key, this.data.getKey())<0) {
         if(this.left==null) {
-          this.left=new TNode(key, value);
+          this.left=new TNode(key, value); // memory freed when BSTMap is garbage collected
         }
         else {
           this.left.insert(key, value, comp);
@@ -119,7 +119,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
       // else go right
       else {
         if(this.right==null) {
-          this.right=new TNode(key, value);
+          this.right=new TNode(key, value); // memory freed when BSTMap is garbage collected
         }
         else {
           this.right.insert(key, value, comp);
@@ -167,7 +167,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   @Override
   public ArrayList<K> keySet() {
     this.entrySet();
-    ArrayList<K> keys=new ArrayList<K>();
+    ArrayList<K> keys=new ArrayList<K>(); // memory freed when method ends
     for (KeyValuePair<K, V> kvp : this.nodes) {
       keys.add(kvp.getKey());
     }
@@ -177,7 +177,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   @Override
   public ArrayList<V> values() {
     this.entrySet();
-    ArrayList<V> values=new ArrayList<V>();
+    ArrayList<V> values=new ArrayList<V>(); // memory freed when method ends
     for (KeyValuePair<K, V> kvp : this.nodes) {
       values.add(kvp.getValue());
     }
@@ -209,7 +209,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   @Override
   public void clear() {
     this.root=null;
-    this.nodes=new ArrayList<KeyValuePair<K, V>>();
+    this.nodes=new ArrayList<KeyValuePair<K, V>>(); // memory freed when BSTMap is garbage collected
   }
 
   public String inorder_driver() {

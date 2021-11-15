@@ -150,7 +150,7 @@ public class HashMap<K, V> implements MapSet<K, V> {
     return this.collisions;
   }
   
-  public void rehash() {
+  private void rehash() {
     // create a copy of the old buckets
     ArrayList<KeyValuePair<K, V>>[] oldBuckets = this.buckets;
     // create new buckets with double capacity
