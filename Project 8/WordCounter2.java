@@ -113,16 +113,12 @@ public class WordCounter2 {
 
   public boolean readWordCount(String filename) {
     this.map.clear();
-    int wordCount = 0;
     try {
       FileReader fileReader = new FileReader(filename);
       BufferedReader br = new BufferedReader(fileReader);
       
       String line = br.readLine();
       String[] words = line.split(" ");
-      if(words[0].equals("totalWordCount:")) {
-        wordCount = Integer.parseInt(words[1]);
-      }
       line = br.readLine();
       while (line != null) {
         words = line.split(" ");
@@ -147,9 +143,31 @@ public class WordCounter2 {
     WordCounter2 wc = new WordCounter2("hash");
     for(String filename: args) {
       ArrayList<String> words = wc.readWords(filename);
+      double times[] = new double[5];
+      double robust=0.0;
+
       for(int i = 0; i < 5; i++) {
-        System.out.println(filename + " took: " + wc.buildMap(words) + "ms");
+        times[i] = wc.buildMap(words);
       }
+
+      // sort times
+      for(int i = 0; i < 4; i++) {
+        for(int j = i + 1; j < 5; j++) {
+          if(times[i] > times[j]) {
+            double temp = times[i];
+            times[i] = times[j];
+            times[j] = temp;
+          }
+        }
+      }
+
+      // calculate robust average
+      for(int i = 1; i < 4; i++) {
+        robust += times[i];
+      }
+      robust /= 3.0;
+
+      System.out.println(filename + " took " + robust + " ms to build");
       System.out.println("Total word count: " + wc.totalWordCount());
       System.out.println("Unique word count: " + wc.uniqueWordCount());
       System.out.println("Collisions: " + ((HashMap) wc.map).getCollisions());

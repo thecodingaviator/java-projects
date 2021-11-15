@@ -209,6 +209,7 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   @Override
   public void clear() {
     this.root=null;
+    this.nodes=new ArrayList<KeyValuePair<K, V>>();
   }
 
   public String inorder_driver() {
@@ -242,11 +243,18 @@ public class BSTMap<K, V> implements MapSet<K, V> {
   }
 
   private int depth(TNode root) {
-    if(root==null) {
+    if(root == null) {
       return 0;
     }
     else {
-      return 1+Math.max(depth(root.left), depth(root.right));
+      int left = depth(root.left);
+      int right = depth(root.right);
+      if(left > right) {
+        return left + 1;
+      }
+      else {
+        return right + 1;
+      }
     }
   }
 

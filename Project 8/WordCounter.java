@@ -26,6 +26,7 @@ public class WordCounter {
     try {
       // cleap map
       this.map.clear();
+      this.wordCount = 0;
       BufferedReader br = new BufferedReader(new FileReader(filename));
       // read first line
       String line = br.readLine();
@@ -147,7 +148,7 @@ public class WordCounter {
       System.out.println(filename + " took: " + (time2-time1) + "ms");
       System.out.println("Total word count for this file is: " + wc.getTotalWordCount());
       System.out.println("Unique word count for this file is: " + wc.getUniqueWordCount());
-      System.out.println("Depth of the tree is: " + wc.map.depth());
+      System.out.println("Depth of tree for this file is: " + wc.map.depth());
       wc.writeWordCountFile(filename.substring(0, filename.length()-4)+"_analyzed.txt");
     }
   }

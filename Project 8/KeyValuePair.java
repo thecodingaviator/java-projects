@@ -27,7 +27,7 @@ public class KeyValuePair<Key, Value> {
   }
 
   public String toString() {
-    return "Key: " + this.getKey() + " Value: " + this.getValue();
+    return "Key: " + this.key + " Value: " + this.value;
   }
 
   public static void main(String[] args) {
