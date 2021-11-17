@@ -41,6 +41,7 @@ public class Graph {
     for(Vertex v : this.vertices) {
       v.setDistance(Double.POSITIVE_INFINITY);
       v.setParent(null);
+      v.setVisited(false);
     }
 
     PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();

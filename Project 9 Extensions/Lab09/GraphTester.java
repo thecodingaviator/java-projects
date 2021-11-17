@@ -58,6 +58,8 @@ public class GraphTester {
     System.out.println("Cost for node (2,4) should be: 6.0");
     System.out.println("Cost for node (3,4) should be: 6.66");
     System.out.println("Cost for node (4,4) should be: 5.66");
+
+    System.out.println("Test 1 end");
   }
 
   // test a grid of 7 rows x 6 columns connected NSEW
