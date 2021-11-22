@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 11/29/2021
+File: Vertex.java
+Section: A
+*/
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 

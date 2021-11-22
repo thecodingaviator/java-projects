@@ -1,0 +1,82 @@
+public class GraphTest {
+  public static void main(String[] args) {
+    Graph g = new Graph();
+    Vertex[][] grid = new Vertex[4][4];
+
+    // create 25 vertices
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        grid[i][j] = new Vertex(i, j, false);
+      }
+    }
+
+    g.addBiEdge(grid[0][0], grid[0][1]);
+    g.addBiEdge(grid[0][0], grid[0][2]);
+    g.addBiEdge(grid[0][0], grid[0][3]);
+
+    g.addBiEdge(grid[0][1], grid[1][0]);
+    g.addBiEdge(grid[0][1], grid[1][1]);
+
+    g.addBiEdge(grid[0][2], grid[2][0]);
+    g.addBiEdge(grid[0][2], grid[2][1]);
+    g.addBiEdge(grid[0][2], grid[2][2]);
+
+    g.addBiEdge(grid[0][3], grid[3][0]);
+    g.addBiEdge(grid[0][3], grid[3][1]);
+    g.addBiEdge(grid[0][3], grid[3][2]);
+
+    g.addBiEdge(grid[1][0], grid[0][1]);
+
+    g.addBiEdge(grid[1][1], grid[0][1]);
+    g.addBiEdge(grid[1][1], grid[1][2]);
+
+    g.addBiEdge(grid[1][2], grid[1][1]);
+    g.addBiEdge(grid[1][2], grid[2][2]);
+
+    g.addBiEdge(grid[1][3], grid[3][1]);
+
+    g.addBiEdge(grid[2][0], grid[0][2]);
+    g.addBiEdge(grid[2][0], grid[2][1]);
+
+    g.addBiEdge(grid[2][1], grid[2][0]);
+    g.addBiEdge(grid[2][1], grid[2][2]);
+
+    g.addBiEdge(grid[2][2], grid[1][2]);
+    g.addBiEdge(grid[2][2], grid[2][1]);
+    g.addBiEdge(grid[2][2], grid[3][2]);
+
+    g.addBiEdge(grid[2][3], grid[0][1]);
+
+    g.addBiEdge(grid[3][0], grid[0][3]);
+    g.addBiEdge(grid[3][0], grid[3][1]);
+
+    g.addBiEdge(grid[3][1], grid[3][0]);
+    g.addBiEdge(grid[3][1], grid[3][2]);
+
+    g.addBiEdge(grid[3][2], grid[2][2]);
+    g.addBiEdge(grid[3][2], grid[3][1]);
+    g.addBiEdge(grid[3][2], grid[3][3]);
+
+    g.addBiEdge(grid[3][3], grid[0][1]);
+
+    g.shortestPath(grid[1][1]);
+
+    String s = "";
+    for (int i = 0; i < 4; i++) {
+      String t = "";
+      for (int j = 0; j < 4; j++) {
+        s += grid[i][j].getDistance();
+        if (j < 4 - 1) {
+          s += " -- ";
+        }
+        t += " |     ";
+      }
+      s += "\n";
+      if (i < 4 - 1) {
+        s += t + "\n";
+      }
+    }
+    System.out.println(s);
+
+  }
+}
