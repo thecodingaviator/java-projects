@@ -38,15 +38,17 @@ public class Vertex implements Comparable<Vertex> {
   }
 
   public double distance(Vertex other) {
+    // use cartesian distance
     return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
   }
 
   public void connect(Vertex other) {
-    adj.add(other);
+    this.adj.add(other);
   }
 
   public Vertex getNeighbor(int x, int y) {
     for (Vertex v : adj) {
+      // if the x and y coordinates of vertex match, return it
       if (v.x == this.x && v.y == this.y) {
         return v;
       }
@@ -59,7 +61,7 @@ public class Vertex implements Comparable<Vertex> {
   }
 
   public int numNeighbors() {
-    return adj.size();
+    return this.adj.size();
   }
 
   public String toString() {
