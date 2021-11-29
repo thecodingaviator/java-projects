@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 11/29/2021
+File: Graph.java
+Section: A
+*/
+
 public class GraphTest {
   public static void main(String[] args) {
     Graph g = new Graph();
@@ -59,6 +66,8 @@ public class GraphTest {
 
     g.addBiEdge(grid[3][3], grid[0][1]);
 
+    System.out.println("Running on grid[1][1]\n");
+
     g.shortestPath(grid[1][1]);
 
     String s = "";
@@ -78,5 +87,25 @@ public class GraphTest {
     }
     System.out.println(s);
 
+    System.out.println("\n\nRunning on grid[3][0]\n");
+
+    g.shortestPath(grid[3][0]);
+
+    s = "";
+    for (int i = 0; i < 4; i++) {
+      String t = "";
+      for (int j = 0; j < 4; j++) {
+        s += grid[i][j].getDistance();
+        if (j < 4 - 1) {
+          s += " -- ";
+        }
+        t += " |     ";
+      }
+      s += "\n";
+      if (i < 4 - 1) {
+        s += t + "\n";
+      }
+    }
+    System.out.println(s);
   }
 }

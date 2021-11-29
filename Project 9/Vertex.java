@@ -7,6 +7,7 @@ Section: A
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.awt.*;
 
 public class Vertex implements Comparable<Vertex> {
   private ArrayList<Vertex> adj;
@@ -16,6 +17,7 @@ public class Vertex implements Comparable<Vertex> {
   private double distance;
   private boolean isVisited;
   private Vertex parent;
+  private Vertex N, S, E, W;
 
   public Vertex(int x, int y) {
     this.x = x;
@@ -25,6 +27,10 @@ public class Vertex implements Comparable<Vertex> {
     this.distance = 0;
     this.isVisited = false;
     this.parent = null;
+    this.N = null;
+    this.S = null;
+    this.E = null;
+    this.W = null;
   }
 
   public Vertex(int x, int y, boolean isVisited) {
@@ -35,18 +41,24 @@ public class Vertex implements Comparable<Vertex> {
     this.distance = 0;
     this.isVisited = isVisited;
     this.parent = null;
+    this.N = null;
+    this.S = null;
+    this.E = null;
+    this.W = null;
+  }
+
+  public enum Direction {
+    NORTH, SOUTH, EAST, WEST
   }
 
   public double distance(Vertex other) {
+    // use cartesian distance
     return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
-  }
-
-  public void connect(Vertex other) {
-    adj.add(other);
   }
 
   public Vertex getNeighbor(int x, int y) {
     for (Vertex v : adj) {
+      // if the x and y coordinates of vertex match, return it
       if (v.x == this.x && v.y == this.y) {
         return v;
       }
@@ -59,7 +71,7 @@ public class Vertex implements Comparable<Vertex> {
   }
 
   public int numNeighbors() {
-    return adj.size();
+    return this.adj.size();
   }
 
   public String toString() {
@@ -77,6 +89,14 @@ public class Vertex implements Comparable<Vertex> {
 
   public void setY(int y) {
     this.y = y;
+  }
+
+  public int getX() {
+    return this.x;
+  }
+
+  public int getY() {
+    return this.y;
   }
 
   public void setVisible(boolean isVisible) {
@@ -107,6 +127,65 @@ public class Vertex implements Comparable<Vertex> {
     return a.x == b.x && a.y == b.y;
   }
 
+  public void connect(Vertex other, Vertex.Direction dir) {
+    switch (dir) {
+      case NORTH:
+        this.connect(other);
+        this.N = other;
+        break;
+      case SOUTH:
+        this.connect(other);
+        this.S = other;
+        break;
+      case EAST:
+        this.connect(other);
+        this.E = other;
+        break;
+      case WEST:
+        this.connect(other);
+        this.W = other;
+        break;
+    }
+  }
+
+  public void connect(Vertex other) {
+    this.adj.add(other);
+  }
+
+  public void draw(Graphics g, int scale) {
+    if (!this.isVisible)
+      return;
+    int xpos = (int) this.getX() * scale;
+    int ypos = (int) this.getY() * scale;
+    int border = 2;
+    int half = scale / 2;
+    int eighth = scale / 8;
+    int sixteenth = scale / 16;
+
+    // draw rectangle for the walls of the room
+    if (this.getDistance() <= 2)
+      // wumpus is nearby
+      g.setColor(Color.red);
+    else
+      // wumpus is not nearby
+      g.setColor(Color.black);
+
+    g.drawRect(xpos + border, ypos + border, scale - 2 * border, scale - 2 * border);
+
+    // draw doorways as boxes
+    g.setColor(Color.black);
+    if (this.getNeighbor(this.getX(), this.getY() - 1) != null)
+      g.fillRect(xpos + half - sixteenth, ypos, eighth, eighth + sixteenth);
+    if (this.getNeighbor(this.getX(), this.getY() + 1) != null)
+      g.fillRect(xpos + half - sixteenth, ypos + scale - (eighth + sixteenth),
+          eighth, eighth + sixteenth);
+    if (this.getNeighbor(this.getX() - 1, this.getY()) != null)
+      g.fillRect(xpos, ypos + half - sixteenth, eighth + sixteenth, eighth);
+    if (this.getNeighbor(this.getX() + 1, this.getY()) != null)
+      g.fillRect(xpos + scale - (eighth + sixteenth), ypos + half - sixteenth,
+        eighth + sixteenth, eighth);
+  }
+
   public static void main(String[] args) {
     Vertex a = new Vertex(1, 1);
     Vertex b = new Vertex(2, 2);
@@ -117,7 +196,7 @@ public class Vertex implements Comparable<Vertex> {
 
     System.out.println(a);
 
-    for(Vertex v : a.getNeighbors()) {
+    for (Vertex v : a.getNeighbors()) {
       System.out.println(v);
     }
 

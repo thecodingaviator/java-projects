@@ -24,49 +24,70 @@ public class Graph {
   }
 
   public void addUniEdge(Vertex v1, Vertex v2) {
+    // if vertex v1 is not in the graph, add it
     if (!this.inGraph(v1)) {
       this.vertices.add(v1);
     }
+    // if vertex v2 is not in the graph, add it
     if (!this.inGraph(v2)) {
       this.vertices.add(v2);
     }
+    // add an edge from v1 to v2
     v1.connect(v2);
   }
 
   public void addBiEdge(Vertex v1, Vertex v2) {
+    // if vertex v1 is not in the graph, add it
     if (!this.inGraph(v1)) {
       this.vertices.add(v1);
     }
+    // if vertex v2 is not in the graph, add it
     if (!this.inGraph(v2)) {
       this.vertices.add(v2);
     }
+    // add an edge from v1 to v2
     v1.connect(v2);
+    // add an edge from v2 to v1
     v2.connect(v1);
   }
 
   public void shortestPath(Vertex v0) {
     for(Vertex v : this.vertices) {
+      // set all vertices to have a distance of infinity
       v.setDistance(Double.POSITIVE_INFINITY);
+      // set all vertices to have no previous vertex
       v.setParent(null);
+      // set all vertices to have not been visited
       v.setVisited(false);
     }
 
     PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();
 
+    // set the distance of v0 to 0
     v0.setDistance(0);
     pq.add(v0);
 
+    // while the priority queue is not empty
     while(!pq.isEmpty()) {
+      // get the vertex with the smallest distance
       Vertex v = pq.poll();
+      // if vertex v has been visited, continue
       if(v.isVisited()) {
         continue;
       }
 
+      // set vertex v to visited
       v.setVisited(true);
       
+      // for each vertex adjacent to v
       for(Vertex w : v.getNeighbors()) {
+        // get the distance of vertex v from w
         double distance = v.distance(w);
+        // if w is not visited and v.cost + distance < w.cost
         if(!w.isVisited() && v.getDistance() + distance < w.getDistance()) {
+          // w.cost = v.cost + distance
+          // make v the parent of w
+          // add w to pq
           w.setDistance(v.getDistance() + distance);
           w.setParent(v);
           pq.add(w);
@@ -81,6 +102,10 @@ public class Graph {
       s += v + "\n";
     }
     return s;
+  }
+
+  public ArrayList<Vertex> getVertices() {
+    return this.vertices;
   }
 
   public static void main(String[] args) {
@@ -104,9 +129,5 @@ public class Graph {
     g.shortestPath(v3);
 
     System.out.println(g);
-  }
-
-  public ArrayList<Vertex> getVertices() {
-    return this.vertices;
   }
 }
