@@ -44,7 +44,6 @@ public class HuntTheWumpus {
   } // end class LandscapePanel
 
   private class Control extends KeyAdapter implements ActionListener {
-
     public void keyTyped(KeyEvent e) {
       System.out.println("Key Pressed: " + e.getKeyChar());
       if (("" + e.getKeyChar()).equalsIgnoreCase("q")) {
@@ -92,7 +91,7 @@ public class HuntTheWumpus {
         // remove key listener
         win.removeKeyListener(win.getKeyListeners()[0]);
         // make wumpus visible
-        wumpus.isVisible();
+        wumpus.setVisible();
         lost = 1;
         System.out.println("You lost!");
       }
@@ -104,18 +103,13 @@ public class HuntTheWumpus {
           // remove key listener
           win.removeKeyListener(win.getKeyListeners()[0]);
           // make wumpus visible
-          wumpus.isVisible();
+          wumpus.setVisible();
           lost = 2;
           System.out.println("You won!");
         }
         // if not, then the hunter has lost
         else {
-          // remove key listener
-          win.removeKeyListener(win.getKeyListeners()[0]);
-          // make wumpus visible
-          wumpus.isVisible();
-          lost = 3;
-          System.out.println("You shot the arrow in an empty room!");
+          this.emptyShot();
         }
       }
 
@@ -126,18 +120,13 @@ public class HuntTheWumpus {
           // remove key listener
           win.removeKeyListener(win.getKeyListeners()[0]);
           // make wumpus visible
-          wumpus.isVisible();
+          wumpus.setVisible();
           lost = 2;
           System.out.println("You won!");
         }
         // if not, then the hunter has lost
         else {
-          // remove key listener
-          win.removeKeyListener(win.getKeyListeners()[0]);
-          // make wumpus visible
-          wumpus.isVisible();
-          lost = 3;
-          System.out.println("You shot the arrow in an empty room!");
+          this.emptyShot();
         }
       }
 
@@ -148,18 +137,13 @@ public class HuntTheWumpus {
           // remove key listener
           win.removeKeyListener(win.getKeyListeners()[0]);
           // make wumpus visible
-          wumpus.isVisible();
+          wumpus.setVisible();
           lost = 2;
           System.out.println("You won!");
         }
         // if not, then the hunter has lost
         else {
-          // remove key listener
-          win.removeKeyListener(win.getKeyListeners()[0]);
-          // make wumpus visible
-          wumpus.isVisible();
-          lost = 3;
-          System.out.println("You shot the arrow in an empty room!");
+          this.emptyShot();
         }
       }
 
@@ -170,20 +154,24 @@ public class HuntTheWumpus {
           // remove key listener
           win.removeKeyListener(win.getKeyListeners()[0]);
           // make wumpus visible
-          wumpus.isVisible();
+          wumpus.setVisible();
           lost = 2;
           System.out.println("You won!");
         }
         // if not, then the hunter has lost
         else {
-          // remove key listener
-          win.removeKeyListener(win.getKeyListeners()[0]);
-          // make wumpus visible
-          wumpus.isVisible();
-          lost = 3;
-          System.out.println("You shot the arrow in an empty room!");
+          this.emptyShot();
         }
       }
+    }
+
+    private void emptyShot() {
+      // remove key listener
+      win.removeKeyListener(win.getKeyListeners()[0]);
+      // make wumpus visible
+      wumpus.setVisible();
+      lost = 3;
+      System.out.println("You shot the arrow in an empty room!");
     }
 
     public void actionPerformed(ActionEvent event) {

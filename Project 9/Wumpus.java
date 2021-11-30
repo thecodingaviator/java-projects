@@ -20,8 +20,12 @@ public class Wumpus {
     }
   }
 
-  public void isVisible() {
+  public void setVisible() {
     this.visible = true;
+  }
+
+  public boolean isVisible() {
+    return this.visible;
   }
 
   public Vertex getCurrent() {
