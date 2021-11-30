@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 11/29/2021
+File: HuntTheWumpus.java
+Section: A
+*/
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -180,6 +187,11 @@ public class HuntTheWumpus {
         System.out.println("Quit button clicked");
         state = PlayState.STOP;
       }
+      // If the Reset button was pressed
+      else if (event.getActionCommand().equalsIgnoreCase("Reset")) {
+        System.out.println("Reset button clicked");
+        reset();
+      }
     }
   } // end class Control
 
@@ -192,12 +204,11 @@ public class HuntTheWumpus {
   private Wumpus wumpus;
   private Vertex[][] vertices;
   private int lost;
+  private PlayState state;
 
   private enum PlayState {
     PLAY, STOP
   }
-
-  private PlayState state;
 
   public HuntTheWumpus() {
     this.state = PlayState.PLAY;
@@ -243,7 +254,7 @@ public class HuntTheWumpus {
 
     // select a vertex that is not the wumpus and more than 2 away from the wumpus
     Vertex hunterVertex = vertices[(int) (Math.random() * vertices.length)][(int) (Math.random() * vertices[0].length)];
-    while(hunterVertex.compareTo(wumpusVertex) < 2) {
+    while(hunterVertex.compareTo(wumpusVertex) <= 2) {
       hunterVertex = vertices[(int) (Math.random() * vertices.length)][(int) (Math.random() * vertices[0].length)];
     }
 
@@ -271,10 +282,11 @@ public class HuntTheWumpus {
     this.win.add(this.canvas, BorderLayout.CENTER);
     this.win.pack();
 
-    // make the labels and a button and put them into the frame
-    // below the canvas.
+    // make the buttons and put them into the frame below the canvas.
     JButton quit = new JButton("Quit");
+    JButton reset = new JButton("Reset");
     JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    panel.add(reset);
     panel.add(quit);
     this.win.add(panel, BorderLayout.SOUTH);
     this.win.pack();
@@ -291,6 +303,7 @@ public class HuntTheWumpus {
     this.win.setFocusable(true);
     this.win.requestFocus();
     quit.addActionListener(control);
+    reset.addActionListener(control);
 
     // make it all visible.
     this.win.setVisible(true);
@@ -302,6 +315,68 @@ public class HuntTheWumpus {
 
   public void dispose() {
     this.win.dispose();
+  }
+
+  public void reset() {
+    this.dispose();
+    this.state = PlayState.PLAY;
+    this.lost = 0;
+
+    // reset all vertices
+    for (int i = 0; i < vertices.length; i++) {
+      for (int j = 0; j < vertices[0].length; j++) {
+        vertices[i][j] = new Vertex(i, j);
+      }
+    }
+
+    // new graph because old vertoces have been replaced
+    this.graph = new Graph();
+    // for all vertices in vertices
+    for (int i = 0; i < vertices.length; i++) {
+      for (int j = 0; j < vertices[0].length; j++) {
+        // add all adjacent vertices to the current vertex
+        if (i > 0) {
+          vertices[i][j].connect(vertices[i - 1][j], Vertex.Direction.NORTH);
+          graph.addBiEdge(vertices[i][j], vertices[i - 1][j]);
+        }
+        if (i < vertices.length - 1) {
+          vertices[i][j].connect(vertices[i + 1][j], Vertex.Direction.SOUTH);
+          graph.addBiEdge(vertices[i][j], vertices[i + 1][j]);
+        }
+        if (j > 0) {
+          vertices[i][j].connect(vertices[i][j - 1], Vertex.Direction.WEST);
+          graph.addBiEdge(vertices[i][j], vertices[i][j - 1]);
+        }
+        if (j < vertices[0].length - 1) {
+          vertices[i][j].connect(vertices[i][j + 1], Vertex.Direction.EAST);
+          graph.addBiEdge(vertices[i][j], vertices[i][j + 1]);
+        }
+      }
+    }
+
+    // select a vertex at random
+    Vertex wumpusVertex = vertices[(int) (Math.random() * vertices.length)][(int) (Math.random() * vertices[0].length)];
+    this.wumpus = new Wumpus(wumpusVertex);
+
+    this.graph.shortestPath(wumpusVertex);
+
+    // select a vertex that is not the wumpus and more than 2 away from the wumpus
+    Vertex hunterVertex = vertices[(int) (Math.random() * vertices.length)][(int) (Math.random() * vertices[0].length)];
+    while(hunterVertex.compareTo(wumpusVertex) <= 2) {
+      hunterVertex = vertices[(int) (Math.random() * vertices.length)][(int) (Math.random() * vertices[0].length)];
+    }
+
+    this.hunter = new Hunter(hunterVertex);
+
+    this.scape = new Landscape(scale * 8, scale * 8, this.hunter, this.wumpus);
+    // add all vertices to landscape
+    for (int i = 0; i < vertices.length; i++) {
+      for (int j = 0; j < vertices[0].length; j++) {
+        this.scape.addBackgroundAgent(vertices[i][j]);
+      }
+    }
+
+    this.buildgame();
   }
 
   public static void main(String[] argv) throws InterruptedException {

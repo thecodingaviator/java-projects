@@ -1,3 +1,10 @@
+/*
+Name: Parth Parth
+Date: 11/29/2021
+File: Hunter.java
+Section: A
+*/
+
 import java.awt.Color;
 import java.awt.Graphics;
 
