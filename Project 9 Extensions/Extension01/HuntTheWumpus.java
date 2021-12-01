@@ -33,7 +33,7 @@ public class HuntTheWumpus {
     public LandscapePanel(int height, int width) {
       super();
       this.setPreferredSize(new Dimension(width, height));
-      this.setBackground(Color.white);
+      this.setBackground(Color.black);
     }
 
     /**
@@ -312,7 +312,7 @@ public class HuntTheWumpus {
 
   public void buildgame() {
     // Make the main window
-    this.win = new JFrame("Basic Interactive Display");
+    this.win = new JFrame("Parth's Hunt the Wumpus");
     win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // make the main drawing canvas (this is the usual

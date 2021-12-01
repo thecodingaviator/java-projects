@@ -19,8 +19,8 @@ public class Wumpus {
 
   public void draw(Graphics g, int scale) throws InterruptedException {
     if(this.visible) {
-      int x = this.current.getX() * scale;
-      int y = this.current.getY() * scale;
+      int x = this.current.getX() * scale + 20;
+      int y = this.current.getY() * scale + 20;
 
       g.setColor(Color.red);
       g.fillOval(x + scale / 2 - scale / 8, y + scale / 2 - scale / 8, scale / 4, scale / 4);

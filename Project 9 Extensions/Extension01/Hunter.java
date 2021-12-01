@@ -18,10 +18,10 @@ public class Hunter {
   public void draw(Graphics g, int scale) {
     this.current.setVisible(true);
     this.current.draw(g, scale);
-    int x = this.current.getX() * scale;
-    int y = this.current.getY() * scale;
+    int x = this.current.getX() * scale + 20;
+    int y = this.current.getY() * scale + 20;
 
-    g.setColor(Color.black);
+    g.setColor(Color.gray);
     g.fillOval(x + scale / 2 - scale / 8, y + scale / 2 - scale / 8, scale / 4, scale / 4);
   }
 

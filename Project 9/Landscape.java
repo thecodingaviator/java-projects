@@ -16,8 +16,8 @@ public class Landscape {
   private Wumpus wumpus;
 
   public Landscape(int w, int h, Hunter hunter, Wumpus wumpus) {
-    this.w = w;
-    this.h = h;
+    this.w = w + 40;
+    this.h = h + 40;
     this.vertices = new LinkedList<Vertex>();
     this.hunter = hunter;
     this.wumpus = wumpus;

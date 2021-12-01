@@ -98,7 +98,8 @@ public class Vertex implements Comparable<Vertex> {
   }
 
   public double getDistance() {
-    return this.distance;
+    int hundredMultiple = (int) (this.distance * 100);
+    return (double) hundredMultiple / 100;
   }
 
   public boolean isVisited() {

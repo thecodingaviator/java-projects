@@ -116,7 +116,8 @@ public class Vertex implements Comparable<Vertex> {
   }
 
   public double getDistance() {
-    return this.distance;
+    int hundredMultiple = (int) (this.distance * 100);
+    return (double) hundredMultiple / 100;
   }
 
   public boolean isVisited() {
@@ -155,8 +156,8 @@ public class Vertex implements Comparable<Vertex> {
   public void draw(Graphics g, int scale) {
     if (!this.isVisible)
       return;
-    int xpos = (int) this.getX() * scale;
-    int ypos = (int) this.getY() * scale;
+    int xpos = (int) this.getX() * scale + 20;
+    int ypos = (int) this.getY() * scale + 20;
     int border = 2;
     int half = scale / 2;
     int eighth = scale / 8;
@@ -168,7 +169,7 @@ public class Vertex implements Comparable<Vertex> {
       g.setColor(Color.red);
     else
       // wumpus is not nearby
-      g.setColor(Color.black);
+      g.setColor(Color.gray);
 
     g.drawRect(xpos + border, ypos + border, scale - 2 * border, scale - 2 * border);
 
