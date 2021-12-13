@@ -107,7 +107,7 @@ public class Graph {
   public ArrayList<Vertex> getVertices() {
     return this.vertices;
   }
-
+  
   public static void main(String[] args) {
     Graph g = new Graph();
     Vertex v1 = new Vertex(1, 0);
@@ -117,17 +117,20 @@ public class Graph {
     Vertex v5 = new Vertex(5, 0);
     Vertex v6 = new Vertex(6, 0);
 
-    g.addUniEdge(v1, v2);
-    g.addUniEdge(v1, v3);
-    g.addUniEdge(v2, v4);
-    g.addUniEdge(v2, v5);
-    g.addUniEdge(v3, v6);
-    g.addUniEdge(v4, v6);
+    g.addBiEdge(v1, v2);
+    g.addBiEdge(v1, v3);
+    g.addBiEdge(v2, v4);
+    g.addBiEdge(v2, v5);
+    g.addBiEdge(v3, v6);
+    g.addBiEdge(v4, v6);
 
     System.out.println(g);
 
     g.shortestPath(v3);
 
     System.out.println(g);
+
+    System.out.println("Vertex count: " + g.vertexCount());
+    System.out.println("In graph v1? " + g.inGraph(v1));
   }
 }

@@ -66,7 +66,7 @@ public class Vertex implements Comparable<Vertex> {
 
   public String toString() {
     DecimalFormat df = new DecimalFormat("0.00");
-    return "(" + this.x + ", " + this.y + ") Neighbors: " + this.numNeighbors() + " Cost: " + df.format(this.getDistance()) + " Visited: " + this.isVisible;
+    return "(" + this.x + ", " + this.y + ") Neighbors: " + this.numNeighbors() + " Cost: " + df.format(this.getDistance()) + " Visited: " + this.isVisited;
   }
 
   public int compareTo(Vertex other) {

@@ -47,7 +47,7 @@ public class Landscape {
       g.setColor(Color.black);
       g.fillRect(0, 0, g.getClipBounds().width, g.getClipBounds().height);
       g.setColor(Color.red);
-      g.drawString("You Lost!", g.getClipBounds().width / 2 - g.getFontMetrics().stringWidth("You Lost!") / 2, g.getClipBounds().height / 2);
+      g.drawString("You lost because the Wumpus ate your hunter!", g.getClipBounds().width / 2 - g.getFontMetrics().stringWidth("You lost because the Wumpus ate your hunter!") / 2, g.getClipBounds().height / 2);
 
       if(!this.soundPlayed) {
         File lol = new File("./sounds/loss.wav");

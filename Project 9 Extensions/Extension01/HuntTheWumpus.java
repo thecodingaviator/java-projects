@@ -62,73 +62,41 @@ public class HuntTheWumpus {
       
       // if w is pressed
       if (("" + e.getKeyChar()).equalsIgnoreCase("w")) {
-        File sound = new File("./sounds/move.wav");
-        try {
-          Clip clip = AudioSystem.getClip();
-          clip.open(AudioSystem.getAudioInputStream(sound));
-          clip.start();
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-
         // if hunter is not at the top of the map
         if (hunter.getCurrent().getY() > 0) {
           // move the hunter up
           hunter.move(vertices[hunter.getCurrent().getX()][hunter.getCurrent().getY() - 1]);
+          this.moveSound();
         }
       }
 
       // if s is pressed
       if (("" + e.getKeyChar()).equalsIgnoreCase("s")) {
-        File sound = new File("./sounds/move.wav");
-        try {
-          Clip clip = AudioSystem.getClip();
-          clip.open(AudioSystem.getAudioInputStream(sound));
-          clip.start();
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-
         // if hunter is not at the bottom of the map
         if (hunter.getCurrent().getY() < scape.getHeight() - 1) {
           // move the hunter down
           hunter.move(vertices[hunter.getCurrent().getX()][hunter.getCurrent().getY() + 1]);
+          this.moveSound();
         }
       }
 
       // if a is pressed
       if (("" + e.getKeyChar()).equalsIgnoreCase("a")) {
-        File sound = new File("./sounds/move.wav");
-        try {
-          Clip clip = AudioSystem.getClip();
-          clip.open(AudioSystem.getAudioInputStream(sound));
-          clip.start();
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-
         // if hunter is not at the left of the map
         if (hunter.getCurrent().getX() > 0) {
           // move the hunter left
           hunter.move(vertices[hunter.getCurrent().getX() - 1][hunter.getCurrent().getY()]);
+          this.moveSound();
         }
       }
 
       // if d is pressed
       if (("" + e.getKeyChar()).equalsIgnoreCase("d")) {
-        File sound = new File("./sounds/move.wav");
-        try {
-          Clip clip = AudioSystem.getClip();
-          clip.open(AudioSystem.getAudioInputStream(sound));
-          clip.start();
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-
         // if hunter is not at the right of the map
         if (hunter.getCurrent().getX() < scape.getWidth() - 1) {
           // move the hunter right
           hunter.move(vertices[hunter.getCurrent().getX() + 1][hunter.getCurrent().getY()]);
+          this.moveSound();
         }
       }
 
@@ -139,7 +107,7 @@ public class HuntTheWumpus {
         // make wumpus visible
         wumpus.setVisible();
         lost = 1;
-        System.out.println("You lost!");
+        System.out.println("You lost because the Wumpus ate your hunter!");
       }
 
       // if i is pressed
@@ -208,6 +176,17 @@ public class HuntTheWumpus {
         else {
           this.emptyShot();
         }
+      }
+    }
+
+    private void moveSound() {
+      File sound = new File("./sounds/move.wav");
+      try {
+        Clip clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(sound));
+        clip.start();
+      } catch (Exception ex) {
+        ex.printStackTrace();
       }
     }
 

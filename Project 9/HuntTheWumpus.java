@@ -100,7 +100,7 @@ public class HuntTheWumpus {
         // make wumpus visible
         wumpus.setVisible();
         lost = 1;
-        System.out.println("You lost!");
+        System.out.println("You lost because the Wumpus ate your hunter!");
       }
 
       // if i is pressed
